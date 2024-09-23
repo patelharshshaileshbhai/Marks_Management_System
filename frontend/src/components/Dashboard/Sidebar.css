@@ -1,0 +1,28 @@
+.sidebar {
+    @apply fixed top-0 left-0 h-[128vh] p-[10px] rounded-[32px] m-[20px] bg-[#925FE2] text-white transition-transform duration-300 ease-in-out;
+    transform: translateX(-100%);
+    z-index: 50; /* Ensure sidebar is above other elements */
+  }
+  
+  /* Adjust for Fully Hidden Sidebar */
+  .menu-icon {
+    @apply fixed top-4 left-4 text-white text-2xl z-50 cursor-pointer md:hidden;
+    z-index: 100; /* Ensure the hamburger menu is above all components */
+  }
+  
+  .sidebar.translate-x-0 {
+    transform: translateX(0);
+    z-index: 50; /* Ensure it stays above the banner */
+  }
+  
+  /* Ensure Banner is Below Sidebar */
+  .banner-component {
+    z-index: 10; /* Ensure the banner stays below the sidebar */
+  }
+  
+  @media (min-width: 768px) {
+    .sidebar {
+      @apply translate-x-0 static w-1/6;
+    }
+  }
+  

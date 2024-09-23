@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    background-color: #c9d6ff;
+    background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.container {
+    background-color: #fff;
+    border-radius: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-width: 768px;
+    min-height: 600px;
+    display: flex;
+    flex-direction: row;
+    transition: all 0.6s ease-in-out;
+}
+
+/* Desktop layout */
+.container > div {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container .form-container {
+    position: relative;
+    width: 50%;
+    transition: all 0.6s ease-in-out;
+}
+
+.container .toggle-container {
+    position: relative;
+    width: 50%;
+    transition: all 0.6s ease-in-out;
+}
+
+.container.active .form-container.sign-in {
+    transform: translateX(-100%);
+}
+
+.container.active .form-container.sign-up {
+    transform: translateX(100%);
+}
+
+.container .form-container form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+/* Mobile layout */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        max-width: none;
+        min-height: auto;
+    }
+
+    .container .form-container {
+        width: 100%;
+        transition: none;
+    }
+
+    .container .toggle-container {
+        width: 100%;
+        height: auto;
+    }
+
+    .container.active .form-container.sign-in {
+        transform: translateY(-100%);
+    }
+
+    .container.active .form-container.sign-up {
+        transform: translateY(100%);
+    }
+}

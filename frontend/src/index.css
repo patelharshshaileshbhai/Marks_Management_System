@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: 'Playwrite Deutschland Grundschrift';
+    src: url('/src/assets/fonts/PlaywriteDeutschlandGrundschrift.ttf') format('truetype');
+  }
+  
