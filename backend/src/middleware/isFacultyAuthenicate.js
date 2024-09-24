@@ -6,8 +6,9 @@ export const isFacultyAuthenticated = async (req, res, next) => {
     try {
 
         console.log("hello")
-        const token = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer", "")
+        // const token = req.cookies?.accessToken
 
+        const token=req.header("Authorization")?.replace("Bearer ","")
         
         console.log(token)
 
@@ -15,14 +16,21 @@ export const isFacultyAuthenticated = async (req, res, next) => {
             return res.status(401).json({ message: "Please Login to access this resource" });
         }
 
-        const decodedData = jwt.verify(token, process.env.TOKEN_SECRET);
-        console.log(decodedData)
+        console.log("hello2")
+        const decodedData = await jwt.verify(token, process.env.TOKEN_SECRET);
+        
 
-        req.user = await Teacher.findById(decodedData._id);
+        const faculty = await Teacher.findById(decodedData?._id).select("secureCode");
 
-        if (!req.user) {
-            return res.status(401).json({ message: "User not found" });
+        if (!faculty) {
+            return res.status(401).json({ message: "Invalid Access Token" });
         }
+
+        req.user = faculty;
+
+        // if (!req.user) {
+        //     return res.status(401).json({ message: "User not found" });
+        // }
 
         next();
     } catch (error) {

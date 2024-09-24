@@ -23,7 +23,7 @@ const HomePage = () => {
           </div>
 
           {/* Right Side: Text Content */}
-          <div className="text-section w-full md:w-1/2 flex flex-col justify-center md:pl-8 h-full">
+          <div className="text-section w-full md:w-1/2 flex flex-col justify-center md:pl-8 h-full bg-gray-900 p-10 border-white shadow-lg rounded-lg">
             <h1 className="text-4xl font-bold font-dosis">Saffrony Institute of Technology</h1>
             <p className="mt-4 text-lg font-dosis">
               Welcome to the official portal of Saffrony Institute of Technology.

@@ -243,6 +243,8 @@ export const teacherLogin = asyncHandler(async (req, res) => {
      )
 })
 export const logoutFaculty= asyncHandler(async(req, res) => {
+    console.log("hello");
+    
     await Teacher.findByIdAndUpdate(
         req.user._id,
         {
@@ -255,14 +257,14 @@ export const logoutFaculty= asyncHandler(async(req, res) => {
         }
     )
 
-    const options = {
-        httpOnly: true,
-        secure: true
-    }
+    // const options = {
+    //     httpOnly: true,
+    //     secure: true
+    // }
 
     return res
     .status(200)
-    .clearCookie("token", options)
+    // .clearCookie("token", options)
     .json(new ApiResponse(200, {}, "Teacher logged Out"))
 })
 // export const logoutTeacher = asyncHandler(async (req, res) => {

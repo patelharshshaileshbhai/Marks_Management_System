@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Saffrony from "../Dashboard/images/saffrony.png";
 import {  useFacultyAuth } from "../context/AuthProvider"; // Import Auth context if needed
-// import axios from 'axios';
+import axios from 'axios';
 import { toast, ToastContainer, Bounce } from 'react-toastify';
 import Loader from '../Loader/Loader';
 
@@ -29,41 +29,47 @@ const FacultySidebar = ({ putMarkingClick }) => {
     };
 
     const handleLogout = async () => {
-        // const token = localStorage.getItem("token");
-        // setLoading(true);
-        // try {
-        //     await axios.post('https://midsem-mern.onrender.com/api/v1/auth/faculty/logout', {}, {
-        //         headers: {
-        //             Authorization: `Bearer ${token}`,
-        //         },
-        //     });
-    
-        //     // Clear local storage
-        //     localStorage.removeItem("token");
-        //     localStorage.removeItem("facultyName"); // Corrected key
-        //     localStorage.removeItem("facultyEmail"); // Corrected key
-        //     logout(); // Call the logout function from context
-    
-        //     setLoading(false); // Move loading state here
-        //     setTimeout(() => {
-        //         navigate("/"); // Redirect to home after logout
-        //     }, 2000);
-    
-        // } catch (error) {
-        //     setLoading(false); // Ensure loading state is reset on error
-        //     console.error('Error during logout:', error);
-        //     toast.error('Logout failed, please try again.');
-        // }
-
+        const token = localStorage.getItem("facultyToken");
         setLoading(true);
+        try {
+            await axios.post('http://localhost:8000/api/v1/auth/teacher-logout', {}, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+    
+            // Clear local storage
+            localStorage.removeItem("facultyToken"); // Clear the faculty token
+            localStorage.removeItem("facultyData"); // Clear the faculty data
+            localStorage.removeItem("facultyEmail");
+            localStorage.removeItem("facultyName");
+            logout(); // Call the logout function from context
+    
+            // Move loading state here
+            setTimeout(() => {
+                setLoading(false); 
+                setTimeout(()=>{
+                    toast.success("Logged out successfully", toastOptions);
+                    navigate("/"); 
+                })
+                // Redirect to home after logout
+            }, 2000);
+    
+        } catch (error) {
+            setLoading(false); // Ensure loading state is reset on error
+            console.error('Error during logout:', error);
+            toast.error('Logout failed, please try again.');
+        }
 
-        // Clear local storage and update context
-        logout(); // Call the logout function from context
+        // setLoading(true);
 
-        setLoading(false); // Ensure loading state is reset
-        setTimeout(() => {
-            navigate("/"); // Redirect to homepage after logout
-        }, 1000);
+        // // Clear local storage and update context
+        // logout(); // Call the logout function from context
+
+        // setLoading(false); // Ensure loading state is reset
+        // setTimeout(() => {
+        //     navigate("/"); // Redirect to homepage after logout
+        // }, 1000);
     };
     
     
@@ -71,6 +77,7 @@ const FacultySidebar = ({ putMarkingClick }) => {
     return (
         <>
             {loading && <Loader />}
+            <ToastContainer/>
             <div
                 className="menu-icon md:hidden fixed top-4 left-4 text-3xl text-white z-50 cursor-pointer"
                 onClick={handleSidebarToggle}
