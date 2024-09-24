@@ -3,6 +3,7 @@ import Contact from '../Contact/Contact';
 import Navbar from '../navbar/Navbar';
 import './HomePage.css';
 import saff from "../../assets/saff.jpg"
+import Footer from "../Footer/Footer"
 // import Particles from '../Particles/Particles';
 // import ParticlesComponent from '../Particles/Particles';
 
@@ -24,7 +25,7 @@ const HomePage = () => {
 
           {/* Right Side: Text Content */}
           <div className="text-section w-full md:w-1/2 flex flex-col justify-center md:pl-8 h-full bg-gray-900 p-10 border-white shadow-lg rounded-lg">
-            <h1 className="text-4xl font-bold font-dosis">Saffrony Institute of Technology</h1>
+            <h1 className="text-4xl font-bold font-dosis text-[#ed5d35]">Saffrony Institute of Technology</h1>
             <p className="mt-4 text-lg font-dosis">
               Welcome to the official portal of Saffrony Institute of Technology.
             </p>
@@ -34,16 +35,17 @@ const HomePage = () => {
           </div>
         </div>
       </div>
-
+      <div className="separator my-20"></div>
       {/* About Section */}
-      <section id="about" className="mt-40">
+      <section id="about" className="mt-10">
         <About />
       </section>
-
+      <div className="separator my-20"></div>
       {/* Contact Section */}
-      <section id="contact" className="mt-40">
+      <section id="contact" className="mt-10">
         <Contact />
       </section>
+      <Footer/>
     </>
   );
 }

@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem("studentData", JSON.stringify(student)); // Store student data
     };
 
-    const logout = () => {
+    const StudentLogout = () => {
         setIsAuthenticated(false);
         localStorage.removeItem("token"); // Clear the student token
         localStorage.removeItem("studentData"); // Clear the student data
@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+        <AuthContext.Provider value={{ isAuthenticated, login, StudentLogout }}>
             {children}
         </AuthContext.Provider>
     );
@@ -57,7 +57,7 @@ export const FacultyAuthProvider = ({ children }) => {
     };
     
 
-    const logout = () => {
+    const FacultyLogout = () => {
         setIsAuthenticated(false);
         localStorage.removeItem("facultyToken"); // Clear the faculty token
         localStorage.removeItem("facultyData"); // Clear the faculty data
@@ -72,7 +72,7 @@ export const FacultyAuthProvider = ({ children }) => {
     
 
     return (
-        <FacultyAuthContext.Provider value={{ isAuthenticated, login, logout }}>
+        <FacultyAuthContext.Provider value={{ isAuthenticated, login, FacultyLogout }}>
             {children}
         </FacultyAuthContext.Provider>
     );

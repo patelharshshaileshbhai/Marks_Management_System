@@ -35,17 +35,11 @@ const About = () => {
           with the latest software, audio-visual teaching aids, discussion rooms,
           stationery store, open-air amphitheatre, playground, boys & girls
           hostels, canteen facility, conference halls, seminar hall, and an
-          auditorium. The convergence of the best human and material
-          infrastructure facilitates a robust academic experience which transcends
-          to technical and cultural festivals, expert lectures, seminars, and
-          conferences, Wi-Fi Campus.
+          auditorium.
         </p>
         <p className="text-lg mb-4 text-justify font-dosis">
           The college has a versatile expert faculty board comprising veterans and
-          intellectual giants from both industry and academia. In fact, CEOs and
-          Directors of some of the most reputed MNCs often come to interact with
-          the students on a regular basis and share industry perspective on their
-          curriculum. Key strengths of the college are a blend of young,
+          intellectual giants from both industry and academia.Key strengths of the college are a blend of young,
           experienced, and well-qualified faculty, modern laboratory
           infrastructure, rich library resources and focus on holistic development
           of students and faculty through innovative pedagogy, research, training,

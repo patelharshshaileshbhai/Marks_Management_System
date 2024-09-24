@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Saffrony from "../Dashboard/images/saffrony.png";
-import {  useFacultyAuth } from "../context/AuthProvider"; // Import Auth context if needed
+// import {  useFacultyAuth } from "../context/AuthProvider"; // Import Auth context if needed
 import axios from 'axios';
 import { toast, ToastContainer, Bounce } from 'react-toastify';
 import Loader from '../Loader/Loader';
@@ -9,68 +9,68 @@ import Loader from '../Loader/Loader';
 const FacultySidebar = ({ putMarkingClick }) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [loading, setLoading] = useState(false);
-    const navigate = useNavigate();
-    const { logout } = useFacultyAuth(); // Use Auth context for logout
+    // const navigate = useNavigate();
+    // const { FacultyLogout } = useFacultyAuth(); // Use Auth context for logout
 
-    const toastOptions = {
-        position: "top-center",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce,
-    };
+    // const toastOptions = {
+    //     position: "top-center",
+    //     autoClose: 2000,
+    //     hideProgressBar: false,
+    //     closeOnClick: true,
+    //     pauseOnHover: true,
+    //     draggable: true,
+    //     progress: undefined,
+    //     theme: "light",
+    //     transition: Bounce,
+    // };
 
     const handleSidebarToggle = () => {
         setIsSidebarOpen(!isSidebarOpen);
     };
 
-    const handleLogout = async () => {
-        const token = localStorage.getItem("facultyToken");
-        setLoading(true);
-        try {
-            await axios.post('http://localhost:8000/api/v1/auth/teacher-logout', {}, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
+    // const handleLogout = async () => {
+    //     const token = localStorage.getItem("facultyToken");
+    //     setLoading(true);
+    //     try {
+    //         await axios.post('http://localhost:8000/api/v1/auth/teacher-logout', {}, {
+    //             headers: {
+    //                 Authorization: `Bearer ${token}`,
+    //             },
+    //         });
     
-            // Clear local storage
-            localStorage.removeItem("facultyToken"); // Clear the faculty token
-            localStorage.removeItem("facultyData"); // Clear the faculty data
-            localStorage.removeItem("facultyEmail");
-            localStorage.removeItem("facultyName");
-            logout(); // Call the logout function from context
+    //         // Clear local storage
+    //         localStorage.removeItem("facultyToken"); // Clear the faculty token
+    //         localStorage.removeItem("facultyData"); // Clear the faculty data
+    //         localStorage.removeItem("facultyEmail");
+    //         localStorage.removeItem("facultyName");
+    //         FacultyLogout(); // Call the logout function from context
     
-            // Move loading state here
-            setTimeout(() => {
-                setLoading(false); 
-                setTimeout(()=>{
-                    toast.success("Logged out successfully", toastOptions);
-                    navigate("/"); 
-                })
-                // Redirect to home after logout
-            }, 2000);
+    //         // Move loading state here
+    //         setTimeout(() => {
+    //             setLoading(false); 
+    //             setTimeout(()=>{
+    //                 toast.success("Logged out successfully", toastOptions);
+    //                 navigate("/"); 
+    //             })
+    //             // Redirect to home after logout
+    //         }, 2000);
     
-        } catch (error) {
-            setLoading(false); // Ensure loading state is reset on error
-            console.error('Error during logout:', error);
-            toast.error('Logout failed, please try again.');
-        }
+    //     } catch (error) {
+    //         setLoading(false); // Ensure loading state is reset on error
+    //         console.error('Error during logout:', error);
+    //         toast.error('Logout failed, please try again.');
+    //     }
 
-        // setLoading(true);
+    //     // setLoading(true);
 
-        // // Clear local storage and update context
-        // logout(); // Call the logout function from context
+    //     // // Clear local storage and update context
+    //     // logout(); // Call the logout function from context
 
-        // setLoading(false); // Ensure loading state is reset
-        // setTimeout(() => {
-        //     navigate("/"); // Redirect to homepage after logout
-        // }, 1000);
-    };
+    //     // setLoading(false); // Ensure loading state is reset
+    //     // setTimeout(() => {
+    //     //     navigate("/"); // Redirect to homepage after logout
+    //     // }, 1000);
+    // };
     
     
 
@@ -121,13 +121,13 @@ const FacultySidebar = ({ putMarkingClick }) => {
                         Talk with AI
                     </Link>
 
-                    <button
+                    {/* <button
                         onClick={handleLogout}
                         className="flex items-center gap-4 text-lg text-gray-200 hover:text-white transition-colors mt-10 font-dosis"
                     >
                         <i className="fa fa-sign-out-alt text-xl"></i>
                         Logout
-                    </button>
+                    </button> */}
                 </div>
             </div>
         </>

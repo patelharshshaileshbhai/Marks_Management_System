@@ -4,6 +4,7 @@ import FacultyNavbar from './FacultyNavbar';
 import FacultyBanner from './FacultyBanner';
 import MarkingForm from './MarkingForm';
 import { useFacultyAuth } from '../context/AuthProvider'; // Use the faculty auth context
+import Footer from "../Footer/Footer";
 
 const FacultyDashboard = () => {
     const [showMarkingForm, setShowMarkingForm] = useState(false);
@@ -41,7 +42,8 @@ const FacultyDashboard = () => {
     console.log("Show marking form:", showMarkingForm);
 
     return (
-        <div className="flex flex-col md:flex-row">
+        <>
+        <div className="flex flex-col md:flex-row min-h-screen"> {/* Added min-h-screen to ensure the page fills the height */}
             {/* Sidebar */}
             <FacultySidebar putMarkingClick={handlePutMarkingClick} />
 
@@ -50,8 +52,12 @@ const FacultyDashboard = () => {
                 <FacultyNavbar />
                 <FacultyBanner name={faculty.name} email={faculty.email} />
                 {isAuthenticated && showMarkingForm && <MarkingForm />} {/* Conditionally render MarkingForm based on authentication */}
+               
+                <div className="mt-10 md:mt-20"></div>
             </div>
         </div>
+        <Footer />
+        </>
     );
 };
 
