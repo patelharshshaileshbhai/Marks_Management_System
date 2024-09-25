@@ -1,7 +1,21 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
-
+import { randomUUID } from "crypto";
+const chatSchema = new mongoose.Schema({
+    id: {
+      type: String,
+      default: crypto.randomUUID(),
+    },
+    role: {
+      type: String,
+      required: true,
+    },
+    content: {
+      type: String,
+      required: true,
+    },
+  });
 const studentSchema = new mongoose.Schema({
     fullname: {
         type: String,
@@ -40,7 +54,8 @@ const studentSchema = new mongoose.Schema({
         required: true,
         enum: [1,2,3,4,5,6,7,8,]
       
-    }
+    },
+    chats: [chatSchema],
     
 },
 {timestamps: true})

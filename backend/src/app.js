@@ -8,6 +8,7 @@ import authRoutes from "../src/routes/Auth.js"
 import facultyRoutes from "../src/routes/faculty.js"
 import studentRoutes from "../src/routes/student.js"
 import adminRoutes from "../src/routes/admin.js"
+import chatRoutes from "../src/routes/chatRoutes.js"
 dotenv.config()
 
 const app = express()
@@ -41,6 +42,7 @@ app.use('/api/v1/auth', authRoutes)
 app.use('/api/v1/faculty', facultyRoutes)
 app.use('/api/v1/student', studentRoutes)
 app.use('/api/v1/admin', adminRoutes)
+app.use('/api/v1/chat', chatRoutes)
 //routes import
 
 //routes declaration
