@@ -100,7 +100,7 @@ const Sidebar = ({ onProfileClick }) => {
             Get Student Profile
           </div>
           <Link
-            to="/talkwithAI"
+            to="/TalkWithAI"
             className="flex items-center gap-4 text-lg text-gray-200 hover:text-white transition-colors font-dosis"
           >
             <i className="fa fa-user-plus text-xl"></i>

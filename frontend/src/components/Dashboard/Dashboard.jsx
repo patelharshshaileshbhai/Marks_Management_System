@@ -7,75 +7,104 @@ import MarksDashboard from '../MarksDashboard/MarksDashboard';
 import { useAuth } from '../context/AuthProvider';
 import hello_boy from "../../assets/hello_boy.png";
 import Footer from '../Footer/Footer';
+import TalkWithAI from '../TalkWithAI/TalkWithAI';
 
 const Dashboard = () => {
-    const [showSearchBar, setShowSearchBar] = useState(false);
-    const [studentData, setStudentData] = useState(null); // State to hold the student data
-    const [loading, setLoading] = useState(true); // Loading state to handle data fetching/loading
-    const { isAuthenticated } = useAuth(); // Get authentication state
+  const [showSearchBar, setShowSearchBar] = useState(false);
+  const [studentData, setStudentData] = useState(null); // State to hold the student data
+  const [loading, setLoading] = useState(true); // Loading state to handle data fetching/loading
+  const [showHelloBoy, setShowHelloBoy] = useState(true); // State to manage visibility of Hello Boy image
+  const [showTalkWithAI, setShowTalkWithAI] = useState(false); // State for TalkWithAI visibility
+  const { isAuthenticated } = useAuth(); // Get authentication state
 
-    useEffect(() => {
-        // Retrieve studentData from localStorage on component mount
-        const storedStudentData = localStorage.getItem("studentData");
+  useEffect(() => {
+    const storedStudentData = localStorage.getItem("studentData");
 
-        if (storedStudentData) {
-            try {
-                // Try parsing studentData only if it exists and is not null or undefined
-                const parsedStudentData = JSON.parse(storedStudentData);
-                setStudentData(parsedStudentData); // Set parsed data to state
-            } catch (error) {
-                console.error("Error parsing student data:", error);
-            }
-        }
-        setLoading(false); // Set loading to false once the data is checked
-    }, []);
-
-    const handleProfileClick = () => {
-        setShowSearchBar(true);
-    };
-
-    const handleStudentData = (data) => {
-        setStudentData(data); // Update local state
-        localStorage.setItem("studentData", JSON.stringify(data)); // Store in local storage
-    };
-
-    if (loading) {
-        return <div>Loading...</div>; // Render a loading message or spinner while waiting for data
+    if (storedStudentData) {
+      try {
+        const parsedStudentData = JSON.parse(storedStudentData);
+        setStudentData(parsedStudentData); // Set parsed data to state
+      } catch (error) {
+        console.error("Error parsing student data:", error);
+      }
     }
+    setLoading(false); // Set loading to false once the data is checked
+  }, []);
 
-    return (
-        <div className="flex flex-col min-h-screen"> {/* Ensure the entire screen height is filled */}
-            <div className="flex flex-1 flex-col md:flex-row">
-                {/* Sidebar */}
-                <Sidebar onProfileClick={handleProfileClick} />
+  const handleProfileClick = () => {
+    setShowSearchBar(true);
+    setShowHelloBoy(false);
+    setShowTalkWithAI(false); // Hide TalkWithAI when searching for profiles
+  };
 
-                {/* Main Content */}
-                <div className="flex-1 p-5 maincontent">
-                    <Navbar1 />
-                    <Banner />
-                    {showSearchBar && (
-                        <SearchBar
-                            placeholder="Enter Student Enrollment number"
-                            onStudentData={handleStudentData} // Pass the handler to SearchBar
-                        />
-                    )}
-                    <div className="flex justify-center mb-4">
-                        <img
-                            src={hello_boy}
-                            alt="Hello Boy"
-                            className="w-full h-auto max-w-xs md:max-w-md lg:max-w-lg object-contain"
-                        />
-                    </div>
-                    {isAuthenticated && studentData && (
-                        <MarksDashboard student={studentData} />
-                    )} {/* Conditionally render MarksDashboard based on authentication and student data */}
-                </div>
+  const handleTalkWithAIClick = () => {
+    setShowSearchBar(false);
+    setShowHelloBoy(false);
+    setShowTalkWithAI(true); // Show TalkWithAI when clicked
+  };
+
+  const handleHomeClick = () => {
+    setShowSearchBar(false);
+    setShowTalkWithAI(false);
+    setShowHelloBoy(true); // Show Hello Boy when clicking Home
+  };
+
+  const handleStudentData = (data) => {
+    setStudentData(data); // Update local state
+    localStorage.setItem("studentData", JSON.stringify(data)); // Store in local storage
+  };
+
+  if (loading) {
+    return <div>Loading...</div>; // Render a loading message or spinner while waiting for data
+  }
+
+  return (
+    <div className="flex flex-col min-h-screen"> {/* Ensure the entire screen height is filled */}
+      <div className="flex flex-1 flex-col md:flex-row">
+        {/* Sidebar */}
+        <Sidebar 
+          onProfileClick={handleProfileClick}
+          onTalkWithAIClick={handleTalkWithAIClick}
+          onHomeClick={handleHomeClick}
+        />
+
+        {/* Main Content */}
+        <div className="flex-1 p-5 maincontent">
+          <Navbar1 />
+          <Banner />
+
+          {showSearchBar && (
+            <SearchBar
+              placeholder="Enter Student Enrollment number"
+              onStudentData={handleStudentData} // Pass the handler to SearchBar
+            />
+          )}
+
+          {/* Conditionally render Hello Boy image */}
+          {showHelloBoy && (
+            <div className="flex justify-center mb-4">
+              <img
+                src={hello_boy}
+                alt="Hello Boy"
+                className="w-full h-auto max-w-xs md:max-w-md lg:max-w-lg object-contain"
+              />
             </div>
+          )}
 
-            {/* Footer */}
-            <Footer /> {/* Footer will be at the bottom, even with minimal content */}
+          {/* Conditionally render TalkWithAI based on sidebar click */}
+          {showTalkWithAI && <TalkWithAI />}
+
+          {/* Conditionally render MarksDashboard based on authentication and student data */}
+          {isAuthenticated && studentData && (
+            <MarksDashboard student={studentData} />
+          )}
         </div>
-    );
+      </div>
+
+      {/* Footer */}
+      <Footer /> {/* Footer will be at the bottom, even with minimal content */}
+    </div>
+  );
 };
 
 export default Dashboard;
