@@ -21,7 +21,7 @@ const TalkWithAI = () => {
     setLoading(true);
 
     try {
-      // Simulate API call to Gemini API
+     
       const res = await axios.post('https://your-gemini-api-endpoint.com/api/ask', {
         prompt: prompt,
       }, {
