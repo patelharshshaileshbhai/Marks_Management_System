@@ -40,14 +40,14 @@ const MarkingForm = () => {
         formData.append('subject', subject);
         formData.append('file', file);
 
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('facultyToken');
         if (!token) {
             toast.error("Unauthorized: No token found", toastOptions);
             return;
         }
 
         try {
-            const response = await axios.post('https://midsem-mern.onrender.com/api/v1/faculty/import-marks', formData, {
+            const response = await axios.post('http://localhost:8000/api/v1/faculty/import-marks', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer ${token}`,

@@ -5,6 +5,7 @@ import Loader from "../Loader/Loader";
 import "./Navbar.css";
 import axios from "axios";
 import { toast, ToastContainer, Bounce } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Navbar = ({ hideSignUpButtons = false }) => {
   const [isNavOpen, setIsNavOpen] = useState(false);
