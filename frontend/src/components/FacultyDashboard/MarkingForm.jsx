@@ -27,25 +27,28 @@ const MarkingForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
-
+    
         if (!branch || !semester || !subject || !file) {
             setError('All fields are required');
             toast.error("All fields are required", toastOptions);
             return;
         }
-
+    
         const formData = new FormData();
         formData.append('branch', branch);
         formData.append('semester', semester);
         formData.append('subject', subject);
         formData.append('file', file);
-
+    
         const token = localStorage.getItem('facultyToken');
         if (!token) {
             toast.error("Unauthorized: No token found", toastOptions);
             return;
         }
-
+    
+        // Display loading toast
+        const loadingToastId = toast.loading("Importing marks, please wait...", toastOptions);
+    
         try {
             const response = await axios.post('http://localhost:8000/api/v1/faculty/import-marks', formData, {
                 headers: {
@@ -53,18 +56,37 @@ const MarkingForm = () => {
                     'Authorization': `Bearer ${token}`,
                 },
             });
-
+    
             if (response.status === 200) {
-                toast.success("Marks imported successfully", toastOptions);
-                navigate("/"); // Redirect to home page
+                toast.update(loadingToastId, {
+                    render: "Marks imported successfully",
+                    type: "success",
+                    isLoading: false,
+                    autoClose: 2000, // You can adjust the auto-close duration
+                });
+    
+                setTimeout(() => {
+                    navigate("/FacultyDashboard"); // Redirect to home page
+                }, 2000);
             } else {
-                toast.error("Failed to import marks", toastOptions);
+                toast.update(loadingToastId, {
+                    render: "Failed to import marks",
+                    type: "error",
+                    isLoading: false,
+                    autoClose: 2000,
+                });
             }
         } catch (error) {
             console.error("Error uploading file:", error);
-            toast.error("Error uploading file", toastOptions);
+            toast.update(loadingToastId, {
+                render: "Error uploading file",
+                type: "error",
+                isLoading: false,
+                autoClose: 2000,
+            });
         }
     };
+    
 
     return (
         <div className="mt-10 p-6 bg-white shadow-md rounded-md">

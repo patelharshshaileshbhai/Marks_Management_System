@@ -180,7 +180,7 @@ const Navbar = ({ hideSignUpButtons = false }) => {
                     Sign up (Student)
                   </button>
                   <button
-                    onClick={() => navigate("/FacultyAdminForm")}
+                    onClick={() => navigate("/FacultyLoginForm")}
                     className="btn-custom text-[#ffffff] font-dosis hover:text-white hover:scale-105 transition-transform duration-1000 font-bold tracking-[3px] text-[13px] px-2 py-2 outline outline-2 outline-[#2c9caf] shadow-lg hover:shadow-[4px_5px_17px_-4px_#268391]"
                   >
                     Sign up (Faculty / Admin)

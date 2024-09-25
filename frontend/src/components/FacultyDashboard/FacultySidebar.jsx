@@ -4,6 +4,7 @@ import Saffrony from "../Dashboard/images/saffrony.png";
 // import {  useFacultyAuth } from "../context/AuthProvider"; // Import Auth context if needed
 import axios from 'axios';
 import { toast, ToastContainer, Bounce } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Loader from '../Loader/Loader';
 
 const FacultySidebar = ({ putMarkingClick }) => {
@@ -100,7 +101,7 @@ const FacultySidebar = ({ putMarkingClick }) => {
                         className="flex items-center gap-4 text-lg text-gray-200 hover:text-white transition-colors font-dosis"
                     >
                         <i className="fa fa-windows text-xl"></i>
-                        Faculty Dashboard
+                        Home
                     </Link>
                     <div
     onClick={() => {
@@ -114,7 +115,7 @@ const FacultySidebar = ({ putMarkingClick }) => {
 </div>
 
                     <Link
-                        to="/talkwithAI"
+                        to="/TalkWithAI"
                         className="flex items-center gap-4 text-lg text-gray-200 hover:text-white transition-colors font-dosis"
                     >
                         <i className="fa fa-user-plus text-xl"></i>

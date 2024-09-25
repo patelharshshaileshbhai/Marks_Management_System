@@ -44,7 +44,7 @@ const StudentPopUp = ({ isOpen, onClose, fullName, email }) => {
         const token = localStorage.getItem("token");
         setLoading(true)
         try {
-          await axios.post('https://midsem-mern.onrender.com/api/v1/student/logout', {}, {
+          await axios.post('http://localhost:8000/api/v1/student/logout', {}, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
