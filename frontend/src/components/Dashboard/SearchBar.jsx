@@ -34,13 +34,12 @@ const SearchBar = ({ placeholder, onStudentData }) => {
     const storedEnrollment = localStorage.getItem('studentEnrollment');
 
     if (searchText === storedEnrollment) {
-        // Show the loader before doing anything else
         setLoading(true);
-
+        
         try {
             const token = localStorage.getItem('token');
             if (!token) {
-                setLoading(false); // Hide the loader if there's no token
+                setLoading(false);
                 toast.error('Unauthorized: No token found');
                 return;
             }
@@ -55,24 +54,18 @@ const SearchBar = ({ placeholder, onStudentData }) => {
                     });
 
                     if (response.status === 200) {
-                        const { branch, semester, subject, marks } = response.data.data[0];
+                        const marksData = response.data.data; // Assuming this returns an array of marks objects
 
                         // Pass the fetched data to the parent component
-                        onStudentData({
-                            branch,
-                            semester,
-                            subject,
-                            marks,
-                        });
+                        onStudentData(marksData); // Now pass the array of marks
 
-                        // Hide the loader after fetching marks
                         setLoading(false);
                         toast.success('Marks fetched successfully', toastOptions);
 
                         // Navigate to the dashboard after showing the message
                         setTimeout(() => {
                             navigate('/Dashboard');
-                        }, 1000); // Short delay before navigating to the dashboard
+                        }, 1000);
 
                     } else {
                         setLoading(false);
@@ -83,10 +76,9 @@ const SearchBar = ({ placeholder, onStudentData }) => {
                     console.error('Error fetching marks:', error);
                     toast.error('Error fetching marks');
                 }
-            }, 1500); // Wait for 1500ms before processing the request
-
+            }, 1500);
         } catch (error) {
-            setLoading(false); // Hide loader in case of unexpected error
+            setLoading(false);
             console.error('Unexpected error:', error);
             toast.error('An unexpected error occurred');
         }

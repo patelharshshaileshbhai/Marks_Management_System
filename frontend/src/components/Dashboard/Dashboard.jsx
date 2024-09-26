@@ -91,8 +91,7 @@ const Dashboard = () => {
             </div>
           )}
 
-          {/* Conditionally render TalkWithAI based on sidebar click */}
-          {showTalkWithAI && <TalkWithAI />}
+          
 
           {/* Conditionally render MarksDashboard based on authentication and student data */}
           {isAuthenticated && studentData && (
