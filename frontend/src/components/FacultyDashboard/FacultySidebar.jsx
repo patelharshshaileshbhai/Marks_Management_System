@@ -115,7 +115,7 @@ const FacultySidebar = ({ putMarkingClick }) => {
 </div>
 
                     <Link
-                        to="/TalkWithAI"
+                        to="/TalkWithAIFaculty" 
                         className="flex items-center gap-4 text-lg text-gray-200 hover:text-white transition-colors font-dosis"
                     >
                         <i className="fa fa-user-plus text-xl"></i>

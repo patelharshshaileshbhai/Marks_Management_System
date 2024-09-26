@@ -1,6 +1,7 @@
 import express from "express";
 import { verifyJWT } from "../middleware/authMiddleware.js";
 import { deleteChats, generateChatCompletion, sendChatsToUser } from "../controller/chatController.js";
+import { isFacultyAuthenticated } from "../middleware/isFacultyAuthenicate.js";
 
 const router = express.Router();
 

@@ -12,7 +12,9 @@ import { AuthProvider, FacultyAuthProvider } from './components/context/AuthProv
 import NotFound from './components/notFound/NotFound';
 import About from './components/About/About';
 import Contact from './components/Contact/Contact';
-import TalkWithAI from './components/TalkWithAI/TalkWithAI';
+import TalkWithAIFaculty from './components/TalkWithAIFaculty/TalkWithAIFaculty';
+import AdminDashboard from './components/AdminDashboard/AdminDashboard';
+import TalkWithAIStudent from './components/TalkWithAIStudent/TalkWithAIStudent';
 
 
 
@@ -35,7 +37,9 @@ function App() {
           <Route path='/Dashboard' element={<Dashboard/>}/>
           <Route path='/FacultyDashboard' element={<FacultyDashboard/>}/>
           <Route path='/MarksDashboard' element={<MarksDashboard/>}/>
-          <Route path='/TalkWithAI' element={<TalkWithAI/>}/>
+          <Route path='/TalkWithAIFaculty' element={<TalkWithAIFaculty/>}/>
+          <Route path='/TalkWithAIStudent' element={<TalkWithAIStudent/>}/>
+          <Route path='/AdminDashboard' element={<AdminDashboard/>}/>
           <Route path='*' element={<NotFound/>}/>
         </Routes>
         </FacultyAuthProvider>

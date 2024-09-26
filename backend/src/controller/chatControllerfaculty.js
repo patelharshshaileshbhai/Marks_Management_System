@@ -1,9 +1,9 @@
 import jwt from "jsonwebtoken";
-import { Student } from "../model/Student.js"; // Import your User model
+import  Teacher  from "../model/Teacher.js"; // Import your User model
 import configureGoogleGenerativeAI from "../config/googleAIConfig.js";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-export const generateChatCompletion = async (req, res, next) => {
+export const generateChatCompletionFaculty = async (req, res, next) => {
   const { prompt } = req.body;
 
   // Validate prompt
@@ -50,7 +50,7 @@ export const generateChatCompletion = async (req, res, next) => {
   }
 };
 // Send all chats to the user
-export const sendChatsToUser = async (req, res, next) => {
+export const sendChatsToFaculty = async (req, res, next) => {
   try {
     const user = req.user;
     if (!user) {
@@ -65,7 +65,7 @@ export const sendChatsToUser = async (req, res, next) => {
 };
 
 // Delete all chats for the user
-export const deleteChats = async (req, res, next) => {
+export const deleteChatsFaculty = async (req, res, next) => {
   try {
     const user = req.user;
     if (!user) {

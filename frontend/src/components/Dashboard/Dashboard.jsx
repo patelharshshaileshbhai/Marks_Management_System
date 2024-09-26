@@ -7,7 +7,7 @@ import MarksDashboard from '../MarksDashboard/MarksDashboard';
 import { useAuth } from '../context/AuthProvider';
 import hello_boy from "../../assets/hello_boy.png";
 import Footer from '../Footer/Footer';
-import TalkWithAI from '../TalkWithAI/TalkWithAI';
+// import TalkWithAI from '../TalkWithAI/TalkWithAI';
 
 const Dashboard = () => {
   const [showSearchBar, setShowSearchBar] = useState(false);
