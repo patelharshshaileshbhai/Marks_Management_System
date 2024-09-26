@@ -6,16 +6,21 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 export const generateChatCompletion = async (req, res, next) => {
   const { prompt } = req.body;
 
+  // Validate prompt
+  if (!prompt || typeof prompt !== 'string') {
+    return res.status(400).json({ message: "Invalid prompt" });
+  }
+
   try {
     const user = req.user;
     if (!user || !user._id) {
       return res.status(401).json({ message: "Student not registered" });
     }
 
-    // Ensure that user.chats is an array
+    // Initialize chats if it doesn't exist
     user.chats = user.chats || [];
 
-    // Add the new message from the user
+    // Store user's message
     const newChat = { role: "user", content: prompt };
     user.chats.push(newChat);
 
@@ -23,25 +28,24 @@ export const generateChatCompletion = async (req, res, next) => {
     const genAI = new GoogleGenerativeAI(process.env.API_KEY);
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-    // Generate content using the user's message as a prompt
+    // Generate response from AI
     const result = await model.generateContent(prompt);
     const assistantResponse = result.response.text();
 
-    // Push the generated response to the user's chats
+    // Store assistant's response
     const assistantChat = { role: "assistant", content: assistantResponse };
     user.chats.push(assistantChat);
 
     // Save updated user chats to the database
     await user.save();
 
-    // Return the updated chats to the client
-    return res.status(200).json({ chats: user.chats });
+    // Return only the assistant's response (last chat)
+    return res.status(200).json({ data:assistantResponse ,message: "OK" });
   } catch (error) {
     console.error("Error in generateChatCompletion:", error);
-    return res.status(500).json({ message: "Something went wrong", error: error.message });
+    return res.status(500).json({ message: "An error occurred", error: error.message });
   }
 };
-
 // Send all chats to the user
 export const sendChatsToUser = async (req, res, next) => {
   try {

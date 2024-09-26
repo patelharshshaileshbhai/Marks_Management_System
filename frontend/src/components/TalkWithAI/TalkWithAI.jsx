@@ -15,6 +15,7 @@ const TalkWithAI = () => {
           'Content-Type': 'application/json',
         },
       });
+      console.log(typeof(res.data.chats));
       setChats(res.data.chats);
     } catch (error) {
       console.error("Error fetching chats:", error);
@@ -46,6 +47,7 @@ const TalkWithAI = () => {
         },
       });
 
+      console.log(res.data.data)
       const aiResponse = res.data.chats[res.data.chats.length - 1]; // Last chat from AI
       setChats(prevChats => [...prevChats, aiResponse]);
     } catch (error) {
