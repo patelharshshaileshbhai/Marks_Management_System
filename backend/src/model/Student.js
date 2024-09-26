@@ -55,6 +55,11 @@ const studentSchema = new mongoose.Schema({
         enum: [1,2,3,4,5,6,7,8,]
       
     },
+    gender :{
+        type: String,
+        required:true,
+        enum: ["male", "female"],
+    },
     chats: [chatSchema],
     
 },

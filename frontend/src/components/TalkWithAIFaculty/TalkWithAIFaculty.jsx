@@ -44,7 +44,7 @@ const TalkWithAIFaculty = () => {
       }
     } catch (error) {
       console.error("Error fetching chats:", error);
-      toast.error("Failed to fetch chats. Please try again.", { autoClose: 2000 });
+      toast.error("Failed to fetch chats. Please try again.", { autoClose: 2000 },toastOptions);
     }
   };
 
@@ -108,10 +108,10 @@ const TalkWithAIFaculty = () => {
       });
       setChats([]);
       localStorage.removeItem('chats');
-      toast.success("Chats cleared successfully!", { autoClose: 2000 });
+      toast.success("Chats cleared successfully!", { autoClose: 2000 },toastOptions);
     } catch (error) {
       console.error("Error deleting chats:", error);
-      toast.error("Failed to delete chats. Please try again.", { autoClose: 2000 });
+      toast.error("Failed to delete chats. Please try again.", { autoClose: 2000 },toastOptions);
     }
   };
 

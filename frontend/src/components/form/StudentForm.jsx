@@ -15,6 +15,7 @@ const StudentForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [enrollment, setEnrollment] = useState("");
+  const [gender , setGender] = useState("");
   const [phone, setPhoneNumber] = useState("");
   const [branch, setBranch] = useState("");
   const [semester, setSemester] = useState("");
@@ -48,6 +49,7 @@ const StudentForm = () => {
       fullname,
       email,
       enrollment,
+      gender,
       phone,
       branch,
       semester,
@@ -262,6 +264,17 @@ const StudentForm = () => {
                 required
                 className="w-full p-3 border border-gray-300 rounded-lg placeholder-gray-700 text-gray-900 font-dosis"
               />
+              <select
+                value={gender}
+                onChange={(e) => setGender(e.target.value)}
+                required
+                className="w-full p-3 border border-gray-300 rounded-lg placeholder-gray-700 text-gray-900 font-dosis"
+              >
+                <option value="">Gender</option>
+                <option value="CE">Male</option>
+                <option value="IT">Female</option>
+              </select>
+
               <input
                 type="number"
                 placeholder="Phone Number"

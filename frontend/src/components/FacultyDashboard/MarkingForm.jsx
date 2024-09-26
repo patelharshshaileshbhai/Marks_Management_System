@@ -13,7 +13,7 @@ const MarkingForm = () => {
     const navigate = useNavigate();
 
     const toastOptions = {
-        position: "top-right",
+        position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -63,7 +63,7 @@ const MarkingForm = () => {
                     type: "success",
                     isLoading: false,
                     autoClose: 2000, // You can adjust the auto-close duration
-                });
+                },toastOptions);
     
                 setTimeout(() => {
                     navigate("/FacultyDashboard"); // Redirect to home page
@@ -74,7 +74,7 @@ const MarkingForm = () => {
                     type: "error",
                     isLoading: false,
                     autoClose: 2000,
-                });
+                },toastOptions);
             }
         } catch (error) {
             console.error("Error uploading file:", error);
@@ -83,7 +83,7 @@ const MarkingForm = () => {
                 type: "error",
                 isLoading: false,
                 autoClose: 2000,
-            });
+            },toastOptions);
         }
     };
     

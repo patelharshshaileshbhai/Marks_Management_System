@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { ToastContainer,Bounce,toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 const Contact = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -32,14 +33,20 @@ console.log("hello");
 
     try{
       const response = await axios.post(
-     "https://midsem-mern.onrender.com/api/v1/student/contact",
+     "http://localhost:8000/api/v1/student/contact-us",
      userQuery,
     {
       headers: {
         "Content-Type": "application/json",
       },
     })
+    console.log(response);
+    setFirstName("");
+    setLastName("");
+    setEmail("");
+    setMessage("");
     toast.success("Query submitted successfully",response, toastOptions);
+
   } catch (error) {
     console.error("Error query submission:", error);
     if (error) {

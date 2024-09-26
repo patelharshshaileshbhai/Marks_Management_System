@@ -78,32 +78,7 @@ const Navbar = ({ hideSignUpButtons = false }) => {
       toast.error('Logout failed, please try again.');
     }
   };
-    // try {
-    //   const token = localStorage.getItem(isFacultyAuthenticated ? "facultyToken" : "token");
-    //   await axios.post(`https://midsem-mern.onrender.com/api/v1/${isFacultyAuthenticated ? 'faculty' : 'student'}/logout`, {}, {
-    //     headers: {
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   });
-
-    //   // Clear local storage
-    //   localStorage.removeItem(isFacultyAuthenticated ? "facultyToken" : "token");
-    //   localStorage.removeItem("facultyData"); // If you have faculty data
-    //   localStorage.removeItem("studentData"); // If you have student data
-    //   isFacultyAuthenticated ? facultyLogout() : studentLogout(); // Call the appropriate logout function
-
-    //   setTimeout(() => {
-    //     setLoading(false);
-    //     navigate("/"); // Redirect to home after logout
-    //   }, 2000);
-      
-    // } catch (error) {
-    //   console.error('Error during logout:', error);
-    //   toast.error('Logout failed, please try again.');
-    //   setLoading(false);
-    // }
-
-
+  
     const handleDashboardClick = () => {
       setLoading(true);
   

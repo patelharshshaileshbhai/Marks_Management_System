@@ -98,7 +98,7 @@ const FacultyAdminForm = () => {
 
     try {
         const response = await axios.post(
-            "https://midsem-mern.onrender.com/api/v1/auth/admin-login",
+            "http://localhost:8000/api/v1/admin/admin-login",
             { email: adminEmail, password: adminPassword },
             {
                 headers: {
