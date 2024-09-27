@@ -27,14 +27,14 @@ const generateAccessTokens = async(student) =>{
 //<-------------------------------------------Student----------------------------------------------------------------->
  export const registerStudent = asyncHandler(async (req, res) => {
 
-    const { fullname, email, enrollment, phone, branch, semester,password} = req.body
+    const { fullname, email, enrollment, phone, branch, semester,password,gender } = req.body
     //console.log("email: ", email);
 
     // if(!fullname || !email || !enrollment || !phone || !branch || !semester || !password){
     //     throw new ApiError(400, "All fields are required");
     // }
     if(
-        [fullname, email, enrollment, phone, branch, semester, password].some(
+        [fullname, email, enrollment, phone, branch, semester, password,gender].some(
             (field) => !field 
         )){
             throw new ApiError(400, "All fields are required");
@@ -57,7 +57,8 @@ const generateAccessTokens = async(student) =>{
         phone,
         branch,
         semester,
-        password
+        password,
+        gender
     })
 
     const createdStudent = await Student.findById(student._id).select(
