@@ -5,82 +5,77 @@ import html2canvas from 'html2canvas';
 const MarksDashboard = ({ student }) => {
     const marksheetRef = useRef();
 
-    // Debugging: Log the student object to ensure it has the correct structure
-    console.log('Student Object:', student);
-
-    // Assuming student is an array of subjects with marks
-    const { branch, semester, marks } = student[0];
-    const { name, enrolment } = marks; 
-
-    // Function to download the marksheet as PDF
     const downloadPDF = () => {
         const input = marksheetRef.current;
-        
+
         html2canvas(input, { scale: 2 }).then((canvas) => {
             const imgData = canvas.toDataURL('image/png');
             const pdf = new jsPDF('p', 'mm', 'a4');
-            
-            // Calculate the dimensions to fit content within the A4 page
-            const imgWidth = 210; // A4 width in mm
+
+            const margin = 10; // Set margin in mm
+            const imgWidth = 210 - 2 * margin; // A4 width minus margins
             const pageHeight = 295; // A4 height in mm
             const imgHeight = (canvas.height * imgWidth) / canvas.width;
             let heightLeft = imgHeight;
             let position = 0;
-    
-            // Add image to PDF and handle multi-page content if necessary
-            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-            heightLeft -= pageHeight;
-    
+
+            // Add the first image with margins
+            pdf.addImage(imgData, 'PNG', margin, position, imgWidth, imgHeight);
+            heightLeft -= (pageHeight - margin); // Adjust heightLeft based on margins
+
+            // Add subsequent pages if content overflows
             while (heightLeft >= 0) {
-                position = heightLeft - imgHeight;
+                position = heightLeft - imgHeight; // Position for the next page
                 pdf.addPage();
-                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-                heightLeft -= pageHeight;
+                pdf.addImage(imgData, 'PNG', margin, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight; // Reduce heightLeft for the next page
             }
-    
-            pdf.save(`${name}_marksheet.pdf`);
+
+            pdf.save(`${student[0].marks.name}_marksheet.pdf`);
         });
     };
 
     return (
-        <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-8 mt-8" ref={marksheetRef}>
-            <div className="text-center">
-                <h2 className="text-2xl font-semibold text-gray-900 font-dosis">Mid Semester Marks Statement</h2>
-                <p className="text-gray-800 font-dosis">Date: {new Date().toLocaleDateString()}, Time: {new Date().toLocaleTimeString()}</p>
-            </div>
-            <div className="mt-8">
-                <p className="text-gray-900 font-dosis"><strong>Student Name:</strong> {name || 'N/A'}</p>
-                <p className="text-gray-900 font-dosis"><strong>Enrollment Number:</strong> {enrolment || 'N/A'}</p>
-                <p className="text-gray-900 font-dosis"><strong>Semester:</strong> {semester || 'N/A'}</p>
-                <p className="text-gray-900 font-dosis"><strong>Branch:</strong> {branch || 'N/A'}</p>
-            </div>
-            <div className="mt-6">
-                <h3 className="text-lg font-medium mb-4 text-gray-900 text-center font-dosis">Marks Statement</h3>
-                <table className="min-w-full bg-white border border-gray-300 rounded-lg overflow-hidden shadow-md">
-                    <thead className="bg-gray-100">
-                        <tr>
-                            <th className="py-3 px-4 text-gray-800 text-left font-semibold font-dosis">Subject Name</th>
-                            <th className="py-3 px-4 text-gray-800 text-left font-semibold font-dosis border-l-2 border-gray-300">Marks Obtained</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {student.length > 0 ? (
-                            student.map((item) => (
-                                <tr key={item._id} className="hover:bg-gray-50 transition duration-200">
-                                    <td className="py-3 px-4 border-b border-gray-200 text-gray-700 font-dosis">{item.subject || 'N/A'}</td>
-                                    <td className="py-3 px-4 border-b border-gray-200 text-gray-700 font-dosis border-l-2 border-gray-300">{item.marks.marks || 'N/A'}</td>
-                                </tr>
-                            ))
-                        ) : (
+        <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-8 mt-8">
+            <div ref={marksheetRef}>
+                <div className="text-center">
+                    <h2 className="text-xl font-semibold text-gray-900 font-dosis">Mid Semester Marks Statement</h2>
+                    <p className="text-gray-800 font-dosis">Date: {new Date().toLocaleDateString()}, Time: {new Date().toLocaleTimeString()}</p>
+                </div>
+                <div className="mt-8">
+                    <p className="text-gray-900 font-dosis"><strong>Student Name:</strong> {student[0].marks.name || 'N/A'}</p>
+                    <p className="text-gray-900 font-dosis"><strong>Enrollment Number:</strong> {student[0].marks.enrolment || 'N/A'}</p>
+                    <p className="text-gray-900 font-dosis"><strong>Semester:</strong> {student[0].semester || 'N/A'}</p>
+                    <p className="text-gray-900 font-dosis"><strong>Branch:</strong> {student[0].branch || 'N/A'}</p>
+                </div>
+                <div className="mt-6">
+                    <h3 className="text-lg font-medium mb-4 text-gray-900 text-center font-dosis">Marks Statement</h3>
+                    <table className="min-w-full bg-white border border-gray-300 rounded-lg overflow-hidden shadow-md">
+                        <thead className="bg-gray-100">
                             <tr>
-                                <td className="py-3 px-4 text-gray-700 font-dosis" colSpan="2">No marks available</td>
+                                <th className="py-3 px-4 text-gray-800 text-left font-semibold font-dosis">Subject Name</th>
+                                <th className="py-3 px-4 text-gray-800 text-left font-semibold font-dosis border-l-2 border-gray-300">Marks Obtained</th>
                             </tr>
-                        )}
-                    </tbody>
-                </table>
-            </div>
-            <div className="mt-8 text-center text-sm text-gray-600 font-dosis">
-                Marksheet report is generated by {name || 'N/A'}.
+                        </thead>
+                        <tbody>
+                            {student.length > 0 ? (
+                                student.map((item) => (
+                                    <tr key={item._id} className="hover:bg-gray-50 transition duration-200">
+                                        <td className="py-3 px-4 border-b border-gray-200 text-gray-700 font-dosis">{item.subject || 'N/A'}</td>
+                                        <td className="py-3 px-4 border-b border-gray-200 text-gray-700 font-dosis border-l-2 border-gray-300">{item.marks.marks || 'N/A'}</td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td className="py-3 px-4 text-gray-700 font-dosis" colSpan="2">No marks available</td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                </div>
+                <div className="mt-8 text-center text-gray-600 font-dosis">
+                    Marksheet report is generated by {student[0].marks.name || 'N/A'}.
+                </div>
             </div>
 
             {/* Button to trigger PDF download */}

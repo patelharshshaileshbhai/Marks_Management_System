@@ -21,7 +21,7 @@ const GetAllStudentsBySemesterAndBranch = () => {
         );
         setStudents(response.data.data);
       } catch (error) {
-        console.error('Error fetching students:', error);
+        console.error("Error fetching students:", error.response.data);
       }
     }
   };

@@ -112,7 +112,7 @@ const FacultyAdminForm = () => {
         const { token } = response.data.data;
         localStorage.setItem("adminToken", token);
         localStorage.setItem("adminEmail",adminEmail)
-        login();
+        login(token);
         setTimeout(() => {
             setLoading(false);
             toast.success("Admin account created successfully", toastOptions);

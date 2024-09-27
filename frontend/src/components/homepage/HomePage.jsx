@@ -4,8 +4,6 @@ import Navbar from '../navbar/Navbar';
 import './HomePage.css';
 import saff from "../../assets/saff.jpg"
 import Footer from "../Footer/Footer"
-// import Particles from '../Particles/Particles';
-// import ParticlesComponent from '../Particles/Particles';
 
 const HomePage = () => {
   return (

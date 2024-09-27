@@ -127,7 +127,6 @@ const Navbar = ({ hideSignUpButtons = false }) => {
   };
 
   const handleLinkClick = (sectionId) => {
-    // This will navigate to sections like #about or #contact
     const section = document.querySelector(sectionId);
     if (section) {
       section.scrollIntoView({ behavior: "smooth" });
@@ -136,11 +135,19 @@ const Navbar = ({ hideSignUpButtons = false }) => {
   };
 
   const handleAboutClick = () => {
-    handleLinkClick("#about");
+    if (location.pathname === "/") {
+      handleLinkClick("#about");
+    } else {
+      navigate("/about"); // Change this to your actual about page route
+    }
   };
   
   const handleContactClick = () => {
-    handleLinkClick("#contact");
+    if (location.pathname === "/") {
+      handleLinkClick("#contact");
+    } else {
+      navigate("/contact"); // Change this to your actual contact page route
+    }
   };
   const shouldHideButtons = hideSignUpButtons || location.pathname.includes("Form");
 
@@ -157,10 +164,10 @@ const Navbar = ({ hideSignUpButtons = false }) => {
             <a className="font-dosis" onClick={handleHomeClick}>Home</a>
           </li>
           <li>
-            <a className="font-dosis" onClick={() => handleAboutClick("#about")}>About</a>
+            <a className="font-dosis" onClick={handleAboutClick}>About</a>
           </li>
           <li>
-            <a className="font-dosis" onClick={() => handleContactClick("#contact")}>Contact</a>
+            <a className="font-dosis" onClick={handleContactClick}>Contact</a>
           </li>
           {!shouldHideButtons && (
             <>
