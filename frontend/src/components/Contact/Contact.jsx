@@ -33,7 +33,7 @@ console.log("hello");
 
     try{
       const response = await axios.post(
-     "http://localhost:8000/api/v1/student/contact-us",
+     "https://marks-management-system.onrender.com/api/v1/student/contact-us",
      userQuery,
     {
       headers: {

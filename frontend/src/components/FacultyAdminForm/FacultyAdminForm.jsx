@@ -98,7 +98,7 @@ const FacultyAdminForm = () => {
 
     try {
         const response = await axios.post(
-            "http://localhost:8000/api/v1/admin/admin-login",
+            "https://marks-management-system.onrender.com/api/v1/admin/admin-login",
             { email: adminEmail, password: adminPassword },
             {
                 headers: {

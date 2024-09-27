@@ -40,7 +40,7 @@ const Navbar = ({ hideSignUpButtons = false }) => {
 
       // For Faculty
       if (isFacultyAuthenticated && FacultyToken) {
-        await axios.post('http://localhost:8000/api/v1/auth/teacher-logout', {}, {
+        await axios.post('https://marks-management-system.onrender.com/api/v1/auth/teacher-logout', {}, {
           headers: {
             Authorization: `Bearer ${FacultyToken}`,
           },

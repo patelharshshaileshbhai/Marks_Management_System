@@ -30,7 +30,7 @@ const TalkWithAIStudent = () => {
   // Function to fetch chats from the API
   const fetchChats = async () => {
     try {
-      const res = await axios.get('http://localhost:8000/api/v1/chat/all-chats', {
+      const res = await axios.get('https://marks-management-system.onrender.com/api/v1/chat/all-chats', {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
           'Content-Type': 'application/json',
@@ -70,7 +70,7 @@ const TalkWithAIStudent = () => {
     setLoading(true);
 
     try {
-      const res = await axios.post('http://localhost:8000/api/v1/chat/new', { 
+      const res = await axios.post('https://marks-management-system.onrender.com/api/v1/chat/new', { 
         prompt, 
         history: chatHistory 
       }, {
@@ -100,7 +100,7 @@ const TalkWithAIStudent = () => {
   // Function to delete all chats
   const deleteChats = async () => {
     try {
-      await axios.delete('http://localhost:8000/api/v1/chat/delete', {
+      await axios.delete('https://marks-management-system.onrender.com/api/v1/chat/delete', {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
           'Content-Type': 'application/json',

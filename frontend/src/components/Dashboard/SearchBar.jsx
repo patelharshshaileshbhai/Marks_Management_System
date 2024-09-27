@@ -47,7 +47,7 @@ const SearchBar = ({ placeholder, onStudentData }) => {
             // Simulate a delay for loading
             setTimeout(async () => {
                 try {
-                    const response = await axios.get(`https://midsem-mern.onrender.com/api/v1/student/getmymarks/${searchText}`, {
+                    const response = await axios.get(`https://marks-management-system.onrender.com/api/v1/student/getmymarks/${searchText}`, {
                         headers: {
                             Authorization: `Bearer ${token}`,
                         },

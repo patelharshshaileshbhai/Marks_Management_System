@@ -58,7 +58,7 @@ const StudentForm = () => {
 
     try {
       const response = await axios.post(
-        "https://midsem-mern.onrender.com/api/v1/auth/signup",
+        "https://marks-management-system.onrender.com/api/v1/auth/signup",
         userData,
         {
           headers: {

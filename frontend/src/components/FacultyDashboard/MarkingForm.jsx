@@ -50,7 +50,7 @@ const MarkingForm = () => {
         const loadingToastId = toast.loading("Importing marks, please wait...", toastOptions);
     
         try {
-            const response = await axios.post('http://localhost:8000/api/v1/faculty/import-marks', formData, {
+            const response = await axios.post('https://marks-management-system.onrender.com/api/v1/faculty/import-marks', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer ${token}`,

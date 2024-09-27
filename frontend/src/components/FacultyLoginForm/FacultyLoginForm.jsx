@@ -33,7 +33,7 @@ const FacultyLoginForm = () => {
   
     try {
       const { data } = await axios.post(
-        "https://midsem-mern.onrender.com/api/v1/auth/teacher-login",
+        "https://marks-management-system.onrender.com/api/v1/auth/teacher-login",
         { email, secureCode },
         { headers: { "Content-Type": "application/json" } }
       );
