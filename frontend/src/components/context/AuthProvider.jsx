@@ -77,3 +77,46 @@ export const FacultyAuthProvider = ({ children }) => {
         </FacultyAuthContext.Provider>
     );
 };
+
+
+
+
+// Admin Auth Context
+const AdminAuthContext = createContext();
+
+// Custom hook to use the faculty context
+export const useAdminAuth = () => useContext(AdminAuthContext);
+
+// Provider component for faculty authentication
+export const AdminAuthProvider = ({ children }) => {
+    const [isAuthenticated, setIsAuthenticated] = useState(() => {
+        const token = localStorage.getItem("adminToken");
+        return !!token; // Returns true if token exists, false otherwise
+    });
+
+    const login = (token, adminData) => {
+        setIsAuthenticated(true);
+        localStorage.setItem("adminToken", token); // Ensure this line is reached
+        localStorage.setItem("adminData", JSON.stringify(adminData)); // And this too
+    };
+    
+
+    const AdminLogout = () => {
+        setIsAuthenticated(false);
+        localStorage.removeItem("adminToken"); // Clear the admin token
+        localStorage.removeItem("adminData"); // Clear the admin data
+        localStorage.removeItem("adminEmail");
+    };
+
+    useEffect(() => {
+        const token = localStorage.getItem("adminToken");
+        setIsAuthenticated(!!token); // This should correctly update the state
+    }, []);
+    
+
+    return (
+        <AdminAuthContext.Provider value={{ isAuthenticated, login, AdminLogout}}>
+            {children}
+        </AdminAuthContext.Provider>
+    );
+};

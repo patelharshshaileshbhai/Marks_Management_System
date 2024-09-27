@@ -8,6 +8,7 @@ import Navbar from "../navbar/Navbar";
 import Loader from "../Loader/Loader";
 import Admin_sign_in from "../../assets/Admin_sign_in.png" 
 import Footer from "../Footer/Footer";
+import { useAdminAuth } from "../context/AuthProvider";
 
 const FacultyAdminForm = () => {
   // const navigate = useNavigate();
@@ -16,7 +17,7 @@ const FacultyAdminForm = () => {
   const [adminPassword, setAdminPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const {login} = useAdminAuth()
   const navigate = useNavigate()
 
 
@@ -98,7 +99,7 @@ const FacultyAdminForm = () => {
 
     try {
         const response = await axios.post(
-            "https://marks-management-system.onrender.com/api/v1/admin/admin-login",
+            "https://marks-management-system.onrender.com/api/v1/auth/admin-login",
             { email: adminEmail, password: adminPassword },
             {
                 headers: {
@@ -106,10 +107,12 @@ const FacultyAdminForm = () => {
                 },
             }
         );
+        console.log({ adminEmail, adminPassword });
 
         const { token } = response.data.data;
-        localStorage.setItem("token", token);
-
+        localStorage.setItem("adminToken", token);
+        localStorage.setItem("adminEmail",adminEmail)
+        login();
         setTimeout(() => {
             setLoading(false);
             toast.success("Admin account created successfully", toastOptions);

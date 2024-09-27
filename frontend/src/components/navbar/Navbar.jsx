@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useAuth, useFacultyAuth } from "../context/AuthProvider"; // Import both contexts
+import { useAdminAuth, useAuth, useFacultyAuth } from "../context/AuthProvider"; // Import both contexts
 import Loader from "../Loader/Loader";
 import "./Navbar.css";
 import axios from "axios";
@@ -12,6 +12,8 @@ const Navbar = ({ hideSignUpButtons = false }) => {
   const [loading, setLoading] = useState(false);
   const { isAuthenticated: isStudentAuthenticated, StudentLogout } = useAuth(); // Add student auth state
   const { isAuthenticated: isFacultyAuthenticated, FacultyLogout } = useFacultyAuth(); // Add faculty auth state
+  const {isAuthenticated : isAdminAuthenticated , AdminLogout} = useAdminAuth();  // Add admin auth state
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -37,6 +39,7 @@ const Navbar = ({ hideSignUpButtons = false }) => {
     try {
       const FacultyToken = localStorage.getItem("facultyToken");
       const StudentToken = localStorage.getItem("token");
+      const AdminToken = localStorage.getItem("adminToken");
 
       // For Faculty
       if (isFacultyAuthenticated && FacultyToken) {
@@ -50,6 +53,19 @@ const Navbar = ({ hideSignUpButtons = false }) => {
         localStorage.removeItem("facultyEmail");
         localStorage.removeItem("facultyName");
         FacultyLogout();
+      }
+
+      if (isAdminAuthenticated && AdminToken) {
+        await axios.post('https://marks-management-system.onrender.com/api/v1/auth/admin-logout', {}, {
+          headers: {
+            Authorization: `Bearer ${AdminToken}`,
+          },
+        });
+        localStorage.removeItem("adminToken");
+        localStorage.removeItem("adminData");
+        localStorage.removeItem("adminEmail");
+    
+        AdminLogout();
       }
 
       // For Student
@@ -87,6 +103,9 @@ const Navbar = ({ hideSignUpButtons = false }) => {
         navigate("/FacultyDashboard");
       } else if (isStudentAuthenticated) {
         navigate("/Dashboard");
+      }
+      else if (isAdminAuthenticated){
+        navigate("/AdminDashboard");
       } else {
         // If no authentication, show an error or redirect to login
         toast.error("You are not logged in!", toastOptions);
@@ -146,7 +165,7 @@ const Navbar = ({ hideSignUpButtons = false }) => {
           {!shouldHideButtons && (
             <>
               {/* Display buttons based on student or faculty authentication */}
-              {(!isStudentAuthenticated && !isFacultyAuthenticated) ? (
+              {(!isStudentAuthenticated && !isFacultyAuthenticated && !isAdminAuthenticated) ? (
                 <>
                   <button
                     onClick={() => navigate("/StudentForm")}

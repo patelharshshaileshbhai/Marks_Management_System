@@ -7,7 +7,6 @@ import MarksDashboard from '../MarksDashboard/MarksDashboard';
 import { useAuth } from '../context/AuthProvider';
 import hello_boy from "../../assets/hello_boy.png";
 import Footer from '../Footer/Footer';
-// import TalkWithAI from '../TalkWithAI/TalkWithAI';
 
 const Dashboard = () => {
   const [showSearchBar, setShowSearchBar] = useState(false);
@@ -27,9 +26,26 @@ const Dashboard = () => {
       } catch (error) {
         console.error("Error parsing student data:", error);
       }
+    } else {
+      console.warn("No student data found in localStorage");
     }
+
     setLoading(false); // Set loading to false once the data is checked
   }, []);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      const storedStudentData = localStorage.getItem("studentData");
+      if (storedStudentData) {
+        try {
+          const parsedStudentData = JSON.parse(storedStudentData);
+          setStudentData(parsedStudentData);
+        } catch (error) {
+          console.error("Error parsing student data:", error);
+        }
+      }
+    }
+  }, [isAuthenticated]);
 
   const handleProfileClick = () => {
     setShowSearchBar(true);
@@ -90,8 +106,6 @@ const Dashboard = () => {
               />
             </div>
           )}
-
-          
 
           {/* Conditionally render MarksDashboard based on authentication and student data */}
           {isAuthenticated && studentData && (

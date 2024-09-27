@@ -33,7 +33,7 @@ const FacultySidebar = ({ putMarkingClick }) => {
                         to="/"
                         className="flex items-center gap-4 text-lg text-gray-200 hover:text-white transition-colors font-dosis"
                     >
-                        <i className="fa fa-windows text-xl"></i>
+                        <i className="fa fa-home text-xl"></i>
                         Home
                     </Link>
                     <div
