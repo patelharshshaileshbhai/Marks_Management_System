@@ -115,7 +115,7 @@ const FacultyAdminForm = () => {
         login(token);
         setTimeout(() => {
             setLoading(false);
-            toast.success("Admin account created successfully", toastOptions);
+            toast.success("Signed in Successfully", toastOptions);
             setTimeout(() => {
                 navigate("/AdminDashboard");
             }, 2000);
