@@ -46,7 +46,7 @@ const AdminSidebar = ({ setSelectedComponent }) => {
                     </Link>
                     <div
                         onClick={() => handleComponentSelect('GetAllStudentsBySemesterAndBranch')}
-                        className={`flex items-center gap-4 text-lg transition-colors font-dosis ${
+                        className={`flex items-center gap-4 text-lg transition-colors font-dosis cursor-pointer ${
                             activeLink === "GetAllStudentsBySemesterAndBranch" ? "text-white border-l-4 border-blue-500 pl-2" : "text-gray-200 hover:text-white"
                           }`}
                     >
@@ -55,7 +55,7 @@ const AdminSidebar = ({ setSelectedComponent }) => {
                     </div>
                     <div
                         onClick={() => handleComponentSelect('GetStudentByEnrollment')}
-                        className={`flex items-center gap-4 text-lg transition-colors font-dosis ${
+                        className={`flex items-center gap-4 text-lg transition-colors font-dosis cursor-pointer ${
                             activeLink === "GetStudentByEnrollment" ? "text-white border-l-4 border-blue-500 pl-2" : "text-gray-200 hover:text-white"
                           }`}
                     >
@@ -64,7 +64,7 @@ const AdminSidebar = ({ setSelectedComponent }) => {
                     </div>
                     <div
                         onClick={() => handleComponentSelect('GetAllStudents')}
-                        className={`flex items-center gap-4 text-lg transition-colors font-dosis ${
+                        className={`flex items-center gap-4 text-lg transition-colors font-dosis cursor-pointer ${
                             activeLink === "GetAllStudents" ? "text-white border-l-4 border-blue-500 pl-2" : "text-gray-200 hover:text-white"
                           }`}
                     >
@@ -74,7 +74,7 @@ const AdminSidebar = ({ setSelectedComponent }) => {
 
                     <div
                         onClick={() => handleComponentSelect('GetStudentsByDepartment')}
-                        className={`flex items-center gap-4 text-lg transition-colors font-dosis ${
+                        className={`flex items-center gap-4 text-lg transition-colors font-dosis cursor-pointer ${
                             activeLink === "GetStudentsByDepartment" ? "text-white border-l-4 border-blue-500 pl-2" : "text-gray-200 hover:text-white"
                           }`}
                     >
@@ -83,7 +83,7 @@ const AdminSidebar = ({ setSelectedComponent }) => {
                     </div>
                     <div
                         onClick={() => handleComponentSelect('GetStudentsBySemester')}
-                        className={`flex items-center gap-4 text-lg transition-colors font-dosis ${
+                        className={`flex items-center gap-4 text-lg transition-colors font-dosis cursor-pointer ${
                             activeLink === "GetStudentsBySemester" ? "text-white border-l-4 border-blue-500 pl-2" : "text-gray-200 hover:text-white"
                           }`}
                     >
@@ -92,7 +92,7 @@ const AdminSidebar = ({ setSelectedComponent }) => {
                     </div>
                     <div
                         onClick={() => handleComponentSelect('GetAllFacultiesByDepartment')}
-                        className={`flex items-center gap-4 text-lg transition-colors font-dosis ${
+                        className={`flex items-center gap-4 text-lg transition-colors font-dosis cursor-pointer ${
                             activeLink === "GetAllFacultiesByDepartment" ? "text-white border-l-4 border-blue-500 pl-2" : "text-gray-200 hover:text-white"
                           }`}
                     >
@@ -101,7 +101,7 @@ const AdminSidebar = ({ setSelectedComponent }) => {
                     </div>
                     <div
                         onClick={() => handleComponentSelect('GetAllFaculties')}
-                        className={`flex items-center gap-4 text-lg transition-colors font-dosis ${
+                        className={`flex items-center gap-4 text-lg transition-colors font-dosis cursor-pointer ${
                             activeLink === "GetAllFaculties" ? "text-white border-l-4 border-blue-500 pl-2" : "text-gray-200 hover:text-white"
                           }`}
                     >

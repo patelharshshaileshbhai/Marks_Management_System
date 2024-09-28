@@ -52,12 +52,13 @@ const FacultyPopUp = ({ isOpen, onClose, fullName, email }) => {
                 localStorage.removeItem("facultyData"); // Clear the faculty data
                 localStorage.removeItem("facultyEmail");
                 localStorage.removeItem("facultyName");
-                FacultyLogout(); // Call the logout function from context
+                 // Call the logout function from context
         
                 // Move loading state here
                 setTimeout(() => {
                     setLoading(false); 
                     setTimeout(()=>{
+                        FacultyLogout();
                         toast.success("Logged out successfully", toastOptions);
                         navigate("/"); 
                     })

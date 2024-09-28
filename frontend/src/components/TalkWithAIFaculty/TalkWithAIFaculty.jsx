@@ -4,11 +4,13 @@ import { toast, ToastContainer, Bounce } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from '../Loader/Loader';
+import { useNavigate } from 'react-router-dom';
 
 const TalkWithAIFaculty = () => {
   const [prompt, setPrompt] = useState('');
   const [chats, setChats] = useState([]);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate()
 
   const toastOptions = {
     position: "top-center",
@@ -122,20 +124,32 @@ const TalkWithAIFaculty = () => {
     }
   };
 
+
+  const backToFacultyDashboard = () =>{
+    navigate("/FacultyDashboard")
+  }
   return (
     <div className="flex flex-col h-screen bg-gray-900 text-white">
       <ToastContainer />
-      {loading && <Loader/>}
+      {loading && <Loader />}
       <div className="p-4 bg-gray-800 text-xl font-semibold font-dosis flex justify-between items-center">
-        <button 
-          onClick={deleteChats} 
-          className="bg-red-600 hover:bg-red-500 p-2 rounded-lg font-semibold transition-colors duration-300"
-        >
-          Delete Chats
-        </button>
+        {/* Flex container for back icon and delete button */}
+        <div className="flex space-x-4 items-center">
+          <i 
+            onClick={backToFacultyDashboard} 
+            className="fa-solid fa-backward-step cursor-pointer"
+          ></i>
+          <button 
+            onClick={deleteChats} 
+            className="bg-red-600 hover:bg-red-500 p-2 rounded-lg font-semibold transition-colors duration-300"
+          >
+            Delete Chats
+          </button>
+        </div>
+        {/* Talk with AI text aligned to the right */}
         <span>Talk with AI</span>
       </div>
-
+  
       <div className="flex-1 p-6 overflow-y-auto space-y-4 bg-gray-900 font-dosis">
         {chats.length === 0 && <p className="text-center text-gray-500">Ask me anything!</p>}
         {chats.map((chat) => (
@@ -151,7 +165,7 @@ const TalkWithAIFaculty = () => {
           </div>
         )}
       </div>
-
+  
       <form onSubmit={handleSubmit} className="p-4 bg-gray-800 flex items-center space-x-4 font-dosis">
         <input
           type="text"
@@ -170,6 +184,6 @@ const TalkWithAIFaculty = () => {
       </form>
     </div>
   );
-};
+}  
 
 export default TalkWithAIFaculty;

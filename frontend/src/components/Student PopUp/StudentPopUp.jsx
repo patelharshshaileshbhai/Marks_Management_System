@@ -57,14 +57,15 @@ const StudentPopUp = ({ isOpen, onClose, fullName, email }) => {
           localStorage.removeItem("studentEmail");
           localStorage.removeItem('studentData');
           localStorage.removeItem("studentEnrollment");
-          StudentLogout(); // Call the logout function from context
+           // Call the logout function from context
     
           setTimeout(() => {
             setLoading(false); 
             setTimeout(()=>{
+                StudentLogout();
                 toast.success("Logged out successfully", toastOptions);
                 navigate("/"); 
-            })
+            },2000)
             // Redirect to home after logout
         }, 2000);
           

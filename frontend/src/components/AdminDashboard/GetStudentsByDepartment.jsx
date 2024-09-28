@@ -78,6 +78,7 @@ const GetStudentsByDepartment = () => {
                 <th className="px-4 py-2 text-left text-gray-900 font-semibold border border-gray-300">Full Name</th>
                 <th className="px-4 py-2 text-left text-gray-900 font-semibold border border-gray-300">Email</th>
                 <th className="px-4 py-2 text-left text-gray-900 font-semibold border border-gray-300">Enrollment</th>
+                <th className="px-4 py-2 text-left text-gray-900 font-semibold border border-gray-300">Gender</th>
                 <th className="px-4 py-2 text-left text-gray-900 font-semibold border border-gray-300">Phone</th>
                 <th className="px-4 py-2 text-left text-gray-900 font-semibold border border-gray-300">Semester</th>
               </tr>
@@ -88,6 +89,7 @@ const GetStudentsByDepartment = () => {
                   <td className="px-4 py-2 text-gray-900 border border-gray-300">{student.fullname}</td>
                   <td className="px-4 py-2 text-gray-900 border border-gray-300">{student.email}</td>
                   <td className="px-4 py-2 text-gray-900 border border-gray-300">{student.enrollment}</td>
+                  <td className="px-4 py-2 text-gray-900 border border-gray-300">{student.gender}</td>
                   <td className="px-4 py-2 text-gray-900 border border-gray-300">{student.phone}</td>
                   <td className="px-4 py-2 text-gray-900 border border-gray-300">{student.semester}</td>
                 </tr>

@@ -3,11 +3,13 @@ import axios from 'axios';
 import { toast, ToastContainer, Bounce } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 const TalkWithAIStudent = () => {
   const [prompt, setPrompt] = useState('');
   const [chats, setChats] = useState([]);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate()
 
   const toastOptions = {
     position: "top-center",
@@ -115,16 +117,27 @@ const TalkWithAIStudent = () => {
     }
   };
 
+  const backToStudentDashboard = () =>{
+    navigate("/Dashboard")
+  }
+
   return (
     <div className="flex flex-col h-screen bg-gray-900 text-white">
       <ToastContainer />
       <div className="p-4 bg-gray-800 text-xl font-semibold font-dosis flex justify-between items-center">
-        <button 
-          onClick={deleteChats} 
-          className="bg-red-600 hover:bg-red-500 p-2 rounded-lg font-semibold transition-colors duration-300"
-        >
-          Delete Chats
-        </button>
+      <div className="flex space-x-4 items-center">
+          <i 
+            onClick={backToStudentDashboard} 
+            className="fa-solid fa-backward-step cursor-pointer"
+          ></i>
+          <button 
+            onClick={deleteChats} 
+            className="bg-red-600 hover:bg-red-500 p-2 rounded-lg font-semibold transition-colors duration-300"
+          >
+            Delete Chats
+          </button>
+        </div>
+        {/* Talk with AI text aligned to the right */}
         <span>Talk with AI</span>
       </div>
 

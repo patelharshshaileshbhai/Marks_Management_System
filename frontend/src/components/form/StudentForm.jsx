@@ -103,7 +103,7 @@ const StudentForm = () => {
 
     try {
       const { data } = await axios.post(
-        "https://midsem-mern.onrender.com/api/v1/auth/login",
+        "https://marks-management-system.onrender.com/api/v1/auth/login",
         { email, password },
         {
           headers: {
@@ -273,8 +273,8 @@ const StudentForm = () => {
                 className="w-full p-3 border border-gray-300 rounded-lg placeholder-gray-700 text-gray-900 font-dosis"
               >
                 <option value="">Gender</option>
-                <option value="CE">Male</option>
-                <option value="IT">Female</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
               </select>
 
               <input
