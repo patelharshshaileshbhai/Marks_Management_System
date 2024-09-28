@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Loader from '../Loader/Loader';
 
 const GetAllStudents = () => {
   const [students, setStudents] = useState([]);
@@ -20,7 +21,11 @@ const GetAllStudents = () => {
 
         // Check if the data is present in the response
         if (response.data && response.data.data) {
-          setStudents(response.data.data); // Set student data from response
+          setTimeout(()=>{
+            setLoading(false)
+            setStudents(response.data.data); // Set student data from response
+          },2000)
+          
         }
       } catch (error) {
         console.error("Error fetching students:", error);
@@ -33,6 +38,7 @@ const GetAllStudents = () => {
 
   return (
     <div className="font-dosis p-4">
+      {loading && <Loader/>}
       <h2 className="text-2xl font-semibold text-white text-center mb-4">All Students</h2>
 
       {/* Import All Students Button */}

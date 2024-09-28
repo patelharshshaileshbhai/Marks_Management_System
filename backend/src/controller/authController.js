@@ -345,3 +345,30 @@ export const adminLogin = asyncHandler(async (req, res) => {
          )
      )
 })
+
+
+export const adminLogout= asyncHandler(async(req, res) => {
+    console.log("hello");
+    
+    await Admin.findByIdAndUpdate(
+        req.user._id,
+        {
+            $unset: {
+                token: "",// this removes the field from document
+            }
+        },
+        {
+            new: true
+        }
+    )
+
+    // const options = {
+    //     httpOnly: true,
+    //     secure: true
+    // }
+
+    return res
+    .status(200)
+    .clearCookie("token", options)
+    .json(new ApiResponse(200, {}, "Admin logged Out"))
+})

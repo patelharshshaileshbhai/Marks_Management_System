@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Loader from '../Loader/Loader';
 
 const GetAllFaculties = () => {
   const [faculties, setFaculties] = useState([]);
@@ -26,9 +27,12 @@ const GetAllFaculties = () => {
           },
         });
         
-        setFaculties(response.data.data); // Set faculties data
-        localStorage.setItem('faculties', JSON.stringify(response.data.data)); // Store faculties in local storage
-        setLoading(false); // Stop loading once data is fetched
+        setTimeout(()=>{
+          setFaculties(response.data.data); // Set faculties data
+          // localStorage.setItem('faculties', JSON.stringify(response.data.data)); // Store faculties in local storage
+          setLoading(false); // Stop loading once data is fetched
+        })
+       
       } catch (error) {
         console.error("Error fetching faculties:", error);
         setLoading(false); // Stop loading if an error occurs
@@ -40,6 +44,7 @@ const GetAllFaculties = () => {
 
   return (
     <div className="font-dosis p-4">
+      {loading && <Loader/>}
       <h2 className="text-2xl font-semibold text-white text-center mb-4">Get All Faculties</h2>
 
       {/* Fetch Faculties Button */}

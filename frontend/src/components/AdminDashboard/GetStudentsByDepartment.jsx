@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Loader from '../Loader/Loader';
 
 const GetStudentsByDepartment = () => {
   const [branch, setBranch] = useState('');
@@ -21,8 +22,12 @@ const GetStudentsByDepartment = () => {
           },
         });
 
-        setStudents(response.data.data); // Set the student data
-        setLoading(false); // Stop loading after data is fetched
+        setTimeout(()=>{
+          setLoading(false); // Set loading to false after fetching data
+          setStudents(response.data.data); // Set the student data
+        },2000)
+       
+        
       } catch (error) {
         console.error("Error fetching students:", error);
         setLoading(false); // Stop loading even if there's an error
@@ -34,6 +39,7 @@ const GetStudentsByDepartment = () => {
 
   return (
     <div className="font-dosis p-4">
+      {loading && <Loader/>}
       <h2 className="text-2xl font-semibold text-white text-center mb-4">Get Students by Department</h2>
 
       {/* Branch Selection Dropdown */}

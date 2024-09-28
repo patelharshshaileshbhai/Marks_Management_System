@@ -4,7 +4,7 @@ import { useAdminAuth, useAuth, useFacultyAuth } from "../context/AuthProvider";
 import Loader from "../Loader/Loader";
 import "./Navbar.css";
 import axios from "axios";
-import { toast, ToastContainer, Bounce } from 'react-toastify';
+import { toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Navbar = ({ hideSignUpButtons = false }) => {
@@ -153,7 +153,7 @@ const Navbar = ({ hideSignUpButtons = false }) => {
 
   return (
     <>
-      <ToastContainer {...toastOptions} />
+      {/* <ToastContainer /> */}
       <nav className="navbar">
         <a href="/" className="logo font-spicy text-[#ed5d35]">Saffrony</a>
         <div className="menu-icon" onClick={handleNavToggle}>

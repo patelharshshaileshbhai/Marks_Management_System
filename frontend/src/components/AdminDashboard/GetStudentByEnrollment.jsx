@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Loader from '../Loader/Loader';
 
 const GetStudentByEnrollment = () => {
   const [enrollment, setEnrollment] = useState('');
@@ -20,7 +21,11 @@ const GetStudentByEnrollment = () => {
             },
           }
         );
-        setStudent(response.data.data);
+        setTimeout(()=>{
+          setLoading(false)
+          setStudent(response.data.data);
+        },2000)
+       
       } catch (error) {
         console.error('Error fetching student:', error);
         setStudent(null); // Reset the student data if there is an error
@@ -39,6 +44,7 @@ const GetStudentByEnrollment = () => {
 
   return (
     <div className="font-dosis p-4">
+      {loading && <Loader/>}
       <h1 className="text-2xl font-semibold text-white text-center mb-4">Search Student by Enrollment</h1>
 
       {/* Input for enrollment number */}

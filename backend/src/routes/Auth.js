@@ -1,8 +1,9 @@
 import express from "express"
 import { Router } from "express"
-import {adminLogin, getStudentProfile, loginStudent, logoutFaculty, logoutStudent,registerStudent, teacherLogin, teacherSignup} from "../controller/authController.js"
+import {adminLogin,adminLogout, getStudentProfile, loginStudent, logoutFaculty, logoutStudent,registerStudent, teacherLogin, teacherSignup} from "../controller/authController.js"
 import { isFacultyAuthenticated } from "../middleware/isFacultyAuthenicate.js";
 import { verifyJWT } from "../middleware/authMiddleware.js";
+import { isAdminAuthenticated} from "../middleware/isAdminAuth.js"
 const router = Router();
 
 
@@ -18,6 +19,7 @@ router.post('/teacher-login', teacherLogin)
 router.post('/teacher-logout',isFacultyAuthenticated, logoutFaculty)
 //admin auth routes
 router.post('/admin-login',adminLogin)
+router.post('/admin-logout',isAdminAuthenticated,adminLogout )
     
 
 export default router

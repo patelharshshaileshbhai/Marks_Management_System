@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Loader from '../Loader/Loader';
 
 const GetAllStudentsBySemesterAndBranch = () => {
   const [students, setStudents] = useState([]);
   const [branch, setBranch] = useState('');
   const [semester, setSemester] = useState('');
+  const [loading , setLoading] = useState(false)
 
   const handleFetchStudents = async () => {
     const token = localStorage.getItem('adminToken'); // Retrieve token from localStorage
 
     if (branch && semester && token) { // Only fetch if branch, semester, and token are available
+      setLoading(true)
       try {
         const response = await axios.get(
           `https://marks-management-system.onrender.com/api/v1/admin/get-students/${branch}/${semester}`,
@@ -19,7 +22,11 @@ const GetAllStudentsBySemesterAndBranch = () => {
             },
           }
         );
-        setStudents(response.data.data);
+        setTimeout(()=>{
+          setLoading(false)
+          setStudents(response.data.data);
+        },2000)
+        
       } catch (error) {
         console.error("Error fetching students:", error.response.data);
       }
@@ -28,6 +35,7 @@ const GetAllStudentsBySemesterAndBranch = () => {
 
   return (
     <div className="font-dosis p-4">
+      {loading && <Loader/>}
       <h1 className="text-2xl font-semibold text-white text-center mb-4">Students List</h1>
 
       {/* Dropdowns for selecting Branch and Semester */}

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Loader from '../Loader/Loader';
 
 const GetAllFacultiesByDepartment = () => {
   const [department, setDepartment] = useState('');
@@ -22,8 +23,12 @@ const GetAllFacultiesByDepartment = () => {
         });
         console.log(response);
         
-        setFaculties(response.data.data); // Set faculties data
-        setLoading(false); // Stop loading once data is fetched
+        setTimeout(()=>{
+          setLoading(false);
+          setFaculties(response.data.data); // Set faculties data
+        },2000)
+        
+       
       } catch (error) {
         console.error("Error fetching faculties:", error);
         setLoading(false); // Stop loading if an error occurs
@@ -35,6 +40,7 @@ const GetAllFacultiesByDepartment = () => {
 
   return (
     <div className="font-dosis p-4">
+      {loading && <Loader/>}
       <h2 className="text-2xl font-semibold text-white text-center mb-4">Get All Faculties by Department</h2>
 
       {/* Department Selection Dropdown */}

@@ -15,6 +15,9 @@ import Contact from './components/Contact/Contact';
 import TalkWithAIFaculty from './components/TalkWithAIFaculty/TalkWithAIFaculty';
 import AdminDashboard from './components/AdminDashboard/AdminDashboard';
 import TalkWithAIStudent from './components/TalkWithAIStudent/TalkWithAIStudent';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 
@@ -25,10 +28,12 @@ import TalkWithAIStudent from './components/TalkWithAIStudent/TalkWithAIStudent'
 function App() {
   return (
    <>
+   <ToastContainer/>
         <AuthProvider>
           <FacultyAuthProvider>
             <AdminAuthProvider>
         <Routes>
+          
           <Route path='/' element={<HomePage/>}/>
           <Route path='/About' element={<About/>}/>
           <Route path='/Contact' element={<Contact/>}/>

@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Loader from '../Loader/Loader';
 
 const GetStudentsBySemester = () => {
   const [semester, setSemester] = useState('');
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(false);
+  
 
   // Function to fetch students by semester
   const handleFetchStudents = async () => {
@@ -20,8 +22,13 @@ const GetStudentsBySemester = () => {
             Authorization: `Bearer ${token}`, // Pass the token in the headers for authorization
           },
         });
-        setStudents(response.data.data); // Set student data
-        setLoading(false); // Stop loading once the data is fetched
+
+        setTimeout(()=>{
+          setLoading(false);
+          setStudents(response.data.data); // Set student data
+        },2000)
+        
+       
       } catch (error) {
         console.error("Error fetching students:", error);
         setLoading(false); // Stop loading if an error occurs
@@ -33,6 +40,7 @@ const GetStudentsBySemester = () => {
 
   return (
     <div className="font-dosis p-4">
+      {loading && <Loader/>}
       <h2 className="text-2xl font-semibold text-white text-center mb-4">Get Students by Semester</h2>
 
       {/* Semester Selection Dropdown */}

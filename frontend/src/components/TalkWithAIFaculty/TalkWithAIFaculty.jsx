@@ -3,6 +3,7 @@ import axios from 'axios';
 import { toast, ToastContainer, Bounce } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
 import 'react-toastify/dist/ReactToastify.css';
+import Loader from '../Loader/Loader';
 
 const TalkWithAIFaculty = () => {
   const [prompt, setPrompt] = useState('');
@@ -67,7 +68,6 @@ const TalkWithAIFaculty = () => {
     localStorage.setItem('chats', JSON.stringify(updatedChats));
 
     const chatHistory = updatedChats.map(chat => `${chat.role}: ${chat.content}`).join('\n');
-    setLoading(true);
 
     try {
       const res = await axios.post('https://marks-management-system.onrender.com/api/v1/chat-faculty/new', { 
@@ -99,6 +99,7 @@ const TalkWithAIFaculty = () => {
 
   // Function to delete all chats
   const deleteChats = async () => {
+    setLoading(true)
     try {
       await axios.delete('https://marks-management-system.onrender.com/api/v1/chat-faculty/delete', {
         headers: {
@@ -106,9 +107,15 @@ const TalkWithAIFaculty = () => {
           'Content-Type': 'application/json',
         },
       });
-      setChats([]);
+
+      setTimeout(()=>{
+        setLoading(false)
+        setChats([]);
       localStorage.removeItem('chats');
       toast.success("Chats cleared successfully!", { autoClose: 2000 },toastOptions);
+
+      },2000)
+      
     } catch (error) {
       console.error("Error deleting chats:", error);
       toast.error("Failed to delete chats. Please try again.", { autoClose: 2000 },toastOptions);
@@ -118,6 +125,7 @@ const TalkWithAIFaculty = () => {
   return (
     <div className="flex flex-col h-screen bg-gray-900 text-white">
       <ToastContainer />
+      {loading && <Loader/>}
       <div className="p-4 bg-gray-800 text-xl font-semibold font-dosis flex justify-between items-center">
         <button 
           onClick={deleteChats} 
