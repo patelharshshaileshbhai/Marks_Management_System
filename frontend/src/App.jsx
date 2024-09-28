@@ -42,7 +42,7 @@ function App() {
           <Route path='/FacultyLoginForm' element={<FacultyLoginForm/>}/>
           <Route path='/Dashboard' element={<PrivateRoute role="student"><Dashboard /></PrivateRoute>}/>
           <Route path='/FacultyDashboard' element={<PrivateRoute role="faculty"><FacultyDashboard /></PrivateRoute>}/>
-          <Route path='/MarksDashboard' element={<MarksDashboard/>}/>
+          <Route path='/MarksDashboard' element={<PrivateRoute role = "student"><MarksDashboard/></PrivateRoute>}/>
           <Route path='/TalkWithAIFaculty' element={<TalkWithAIFaculty/>}/>
           <Route path='/TalkWithAIStudent' element={<TalkWithAIStudent/>}/>
           <Route path='/AdminDashboard' element={<PrivateRoute role="admin"><AdminDashboard /></PrivateRoute>}/>

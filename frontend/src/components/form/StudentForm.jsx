@@ -49,13 +49,14 @@ const StudentForm = () => {
       fullname,
       email,
       enrollment,
-      gender,
       phone,
       branch,
       semester,
       password,
+      gender,
     };
 
+    setLoading(true)
     try {
       const response = await axios.post(
         "https://marks-management-system.onrender.com/api/v1/auth/signup",
@@ -67,10 +68,11 @@ const StudentForm = () => {
         }
       );
 
-      toast.success(response.data.message, toastOptions);
-      setTimeout(() => {
+      setTimeout(()=>{
+        setLoading(false)
+        toast.success(response.data.message, toastOptions);
         setActive(false);
-      }, 2000);
+      },2000)
     } catch (error) {
       console.error("Error signing up:", error);
       if (error.response?.status === 409) {
@@ -161,7 +163,7 @@ const StudentForm = () => {
     <>
     <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen z-50 bg-[#0C1321] pt-24 lg:pt-32 px-4 lg:px-16 overflow-hidden">
       <Navbar hideSignUpButtons />
-      <ToastContainer {...toastOptions} />
+      <ToastContainer />
       {loading && <Loader />}
 
       {/* Main Container with white background and rounded corners */}
