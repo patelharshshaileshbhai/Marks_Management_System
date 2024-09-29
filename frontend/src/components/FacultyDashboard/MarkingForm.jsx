@@ -80,7 +80,6 @@ const MarkingForm = () => {
             }
         } catch (error) {
             console.error("Error uploading file:", error);
-            throw new ApiError(500, 'Error processing the file');
             toast.update(loadingToastId, {
                 render: "Error uploading file",
                 type: "error",
