@@ -4,7 +4,7 @@ import Navbar1 from './Navbar1';
 import Banner from './Banner';
 import SearchBar from './SearchBar';
 import MarksDashboard from '../MarksDashboard/MarksDashboard';
-import { useAuth } from '../context/AuthProvider';
+import { StudentProvider, useAuth } from '../context/AuthProvider';
 import hello_boy from "../../assets/hello_boy.png";
 import Footer from '../Footer/Footer';
 
@@ -86,9 +86,11 @@ const Dashboard = () => {
 
         {/* Main Content */}
         <div className="flex-1 p-5 maincontent">
+         <StudentProvider>
           <Navbar1 />
           <Banner />
-
+          </StudentProvider>
+         
           {showSearchBar && (
             <SearchBar
               placeholder="Enter Student Enrollment number"

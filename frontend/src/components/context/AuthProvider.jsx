@@ -120,3 +120,33 @@ export const AdminAuthProvider = ({ children }) => {
         </AdminAuthContext.Provider>
     );
 };
+
+
+
+
+
+// StudentContext.js
+
+// Create a context
+const StudentContext = createContext();
+
+// Custom hook to access the student context
+export const useStudent = () =>  useContext(StudentContext);
+
+// Provider component
+export const StudentProvider = ({ children }) => {
+    const [studentDetails, setStudentDetails] = useState({
+        fullname: localStorage.getItem("fullName") || "",
+        email: localStorage.getItem("studentEmail") || "",
+    });
+
+    const updateStudentDetails = (details) => {
+        setStudentDetails(details);
+    };
+
+    return (
+        <StudentContext.Provider value={{ studentDetails, updateStudentDetails }}>
+            {children}
+        </StudentContext.Provider>
+    );
+};

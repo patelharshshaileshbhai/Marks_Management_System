@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import boy_avatar from "../../assets/boy_avatar.png";
 import StudentPopUp from '../Student PopUp/StudentPopUp';
+import { useStudent } from '../context/AuthProvider';
 
 const Navbar1 = () => {
     const [isPopUpOpen, setIsPopUpOpen] = useState(false);
-    const fullName = localStorage.getItem("fullName");
-    const studentEmail = localStorage.getItem("studentEmail");
+    const { studentDetails } = useStudent()
+    // const fullName = localStorage.getItem("fullName");
+    // const studentEmail = localStorage.getItem("studentEmail");
 
     const togglePopUp = () => {
         setIsPopUpOpen(!isPopUpOpen);
@@ -17,7 +19,7 @@ const Navbar1 = () => {
                 {/* Profile Section */}
                 <div className="flex items-center" onClick={togglePopUp}>
                     <div className='mr-3'>
-                        <p className="text-sm font-bold font-dosis">{fullName || "Student Name"}</p>
+                        <p className="text-sm font-bold font-dosis">{studentDetails.fullname || "Student Name"}</p>
                     </div>
                     <div className="rounded-full border-2 border-[#925FE2] cursor-pointer overflow-hidden shadow-2xl w-14 h-14 flex items-center justify-center">
                         <img
@@ -31,8 +33,8 @@ const Navbar1 = () => {
             <StudentPopUp 
                 isOpen={isPopUpOpen} 
                 onClose={togglePopUp} 
-                fullName={fullName} 
-                email={studentEmail} 
+                // fullName={fullName} 
+                // email={studentEmail} 
             />
         </div>
     );

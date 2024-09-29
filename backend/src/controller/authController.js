@@ -142,33 +142,56 @@ export const getStudentProfile = asyncHandler(async (req, res) => {
     )
 })
 
-export const updateStudent=asyncHandler(async (req, res) => {
-    
-    const id=req.user._id
-    const updates=req.body
-    const student=await Student.findById(id)
+export const updateStudent = asyncHandler(async (req, res) => {
+    const id = req.user._id; // Ensure that verifyJWT attaches user ID to req.user
+    const updates = req.body;
 
-    if(!student){
-        throw new ApiError(404, "Student not found")
+    // Find the student by their ID
+    const student = await Student.findById(id);
+    console.log("Student found:", student); // Log the student found
+
+    if (!student) {
+        console.error("Student not found"); // Log if not found
+        throw new ApiError(404, "Student not found");
     }
 
+    console.log("Updates:", updates);
+    console.log("Current Student Data before update:", student);
+
+    // Only allow certain fields to be updated
+    const allowedUpdates = ["fullname", "email", "enrollment", "gender", "phone", "branch", "semester"];
+    
     Object.keys(updates).forEach((key) => {
-        student[key]=updates[key]
-    })
-    await student.save()
-    const updatedStudent = await Student.findById(id).select("-password ")
+        if (allowedUpdates.includes(key)) {
+            student[key] = updates[key];
+        }
+    });
+
+    // Save the updated student details to the database
+    try {
+        await student.save();
+        console.log("Student Data after update:", student);
+    } catch (error) {
+        console.error("Error saving student:", error); // Log any errors while saving
+        throw new ApiError(500, "Error saving student data");
+    }
+
+    // Return the updated student details without the password
+    const updatedStudent = await Student.findById(id).select("-password");
+
     return res
-    .status(200)
-    .json(
-        new ApiResponse(
-            200, 
-            {
-                student: updatedStudent
-            },
-            "Student profile updated successfully"
-        )
-    )
-})
+        .status(200)
+        .json(
+            new ApiResponse(
+                200,
+                {
+                    student: updatedStudent,
+                },
+                "Student profile updated successfully"
+            )
+        );
+});
+
 
 export const logoutStudent = asyncHandler(async(req, res) => {
     await Student.findByIdAndUpdate(
