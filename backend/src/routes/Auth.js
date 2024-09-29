@@ -1,6 +1,6 @@
 import express from "express"
 import { Router } from "express"
-import {adminLogin,adminLogout, getStudentProfile, loginStudent, logoutFaculty, logoutStudent,registerStudent, teacherLogin, teacherSignup} from "../controller/authController.js"
+import {adminLogin,adminLogout, getStudentProfile, loginStudent, logoutFaculty, logoutStudent,registerStudent, teacherLogin, teacherSignup, updateStudent} from "../controller/authController.js"
 import { isFacultyAuthenticated } from "../middleware/isFacultyAuthenicate.js";
 import { verifyJWT } from "../middleware/authMiddleware.js";
 import { isAdminAuthenticated} from "../middleware/isAdminAuth.js"
@@ -12,6 +12,7 @@ router.post('/signup', registerStudent)
 router.post('/login',loginStudent)
 router.get('/getmyprofile',verifyJWT,getStudentProfile);
 router.post('/logout',verifyJWT,logoutStudent)
+router.put('/update-student',verifyJWT,updateStudent)
 
 //teacher auth routes
 router.post('/teacher-signup',teacherSignup)

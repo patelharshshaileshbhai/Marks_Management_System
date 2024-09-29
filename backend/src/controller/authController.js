@@ -142,6 +142,34 @@ export const getStudentProfile = asyncHandler(async (req, res) => {
     )
 })
 
+export const updateStudent=asyncHandler(async (req, res) => {
+    
+    const id=req.user._id
+    const updates=req.body
+    const student=await Student.findById(id)
+
+    if(!student){
+        throw new ApiError(404, "Student not found")
+    }
+
+    Object.keys(updates).forEach((key) => {
+        student[key]=updates[key]
+    })
+    await student.save()
+    const updatedStudent = await Student.findById(id).select("-password ")
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(
+            200, 
+            {
+                student: updatedStudent
+            },
+            "Student profile updated successfully"
+        )
+    )
+})
+
 export const logoutStudent = asyncHandler(async(req, res) => {
     await Student.findByIdAndUpdate(
         req.user._id,
