@@ -25,11 +25,8 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
 
-const corsOptions = {
-    origin: ["https://marks-management-system.vercel.app/","http://localhost:5173"],
-    credentials: true,
-  };
-  app.use(cors(corsOptions));
+
+  app.use(cors());
 
 
 
