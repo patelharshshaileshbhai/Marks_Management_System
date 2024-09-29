@@ -70,7 +70,7 @@ const Navbar = ({ hideSignUpButtons = false }) => {
 
       // For Student
       if (isStudentAuthenticated && StudentToken) {
-        await axios.post('http://localhost:8000/api/v1/student/logout', {}, {
+        await axios.post('https://marks-management-system.onrender.com/api/v1/student/logout', {}, {
           headers: {
             Authorization: `Bearer ${StudentToken}`,
           },
