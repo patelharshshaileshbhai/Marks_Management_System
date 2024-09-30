@@ -17,6 +17,7 @@ import AdminDashboard from './components/AdminDashboard/AdminDashboard';
 import TalkWithAIStudent from './components/TalkWithAIStudent/TalkWithAIStudent';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ForgetPassword from './components/ForgetPassword/ForgetPassword';
 
 
 
@@ -46,6 +47,7 @@ function App() {
           <Route path='/TalkWithAIFaculty' element={<TalkWithAIFaculty/>}/>
           <Route path='/TalkWithAIStudent' element={<TalkWithAIStudent/>}/>
           <Route path='/AdminDashboard' element={<PrivateRoute role="admin"><AdminDashboard /></PrivateRoute>}/>
+          <Route path='/ForgetPassword' element={<ForgetPassword/>}/>
           <Route path='*' element={<NotFound/>}/>
         </Routes>
         </AdminAuthProvider>

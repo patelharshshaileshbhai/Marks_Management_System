@@ -208,6 +208,15 @@ const StudentForm = () => {
                 Sign In
               </button>
             </form>
+            <div className="mt-2 text-center">
+              <a
+                href="#"
+                onClick={() => navigate("/ForgetPassword")} // Assuming you're using React Router to navigate
+                className="text-blue-500 font-dosis"
+              >
+                Forgot Password?
+              </a>
+            </div>
             <div className="mt-4 text-center">
               <p className="text-gray-700 font-dosis">
                 Don't have an account?{" "}

@@ -1,25 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from '../Loader/Loader';
 import { useNavigate } from 'react-router-dom';
-import { useStudent, StudentLogout } from '../context/AuthProvider';
+import { useAuth, useStudent } from '../context/AuthProvider';
 
 const StudentPopUp = ({ isOpen, onClose }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [loading, setLoading] = useState(false);
-    const { updateStudentDetails } = useStudent();
-    const [studentData, setStudentData] = useState({});
-    const [updatedFullName, setUpdatedFullName] = useState('');
-    const [updatedEmail, setUpdatedEmail] = useState('');
-    const [updatedEnrollment, setUpdatedEnrollment] = useState('');
-    const [updatedPhone, setUpdatedPhone] = useState('');
-    const [updatedBranch, setUpdatedBranch] = useState('');
-    const [updatedSemester, setUpdatedSemester] = useState('');
-    const [updatedGender, setUpdatedGender] = useState('');
+    const { updateStudentDetails, studentDetails } = useStudent();
+    const [updatedFullName, setUpdatedFullName] = useState(studentDetails.fullname || '');
+    const [updatedEmail, setUpdatedEmail] = useState(studentDetails.email || '');
+    const [updatedEnrollment, setUpdatedEnrollment] = useState(studentDetails.enrollment || '');
+    const [updatedPhone, setUpdatedPhone] = useState(studentDetails.phone || '');
+    const [updatedBranch, setUpdatedBranch] = useState(studentDetails.branch || '');
+    const [updatedSemester, setUpdatedSemester] = useState(studentDetails.semester || '');
+    const [updatedGender, setUpdatedGender] = useState(studentDetails.gender || '');
     const navigate = useNavigate();
-
+    const { StudentLogout } = useAuth();
+    
     const toastOptions = {
         position: "top-center",
         autoClose: 2000,
@@ -27,36 +27,9 @@ const StudentPopUp = ({ isOpen, onClose }) => {
         transition: Bounce,
     };
 
-    useEffect(() => {
-        const fetchStudentProfile = async () => {
-            const token = localStorage.getItem("token");
-            try {
-                const response = await axios.get('https://marks-management-system.onrender.com/api/v1/auth/getmyprofile', {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
-                const { fullName, email, enrollment, phone, branch, semester, gender } = response.data;
-                setStudentData(response.data);
-                setUpdatedFullName(fullName);
-                setUpdatedEmail(email);
-                setUpdatedEnrollment(enrollment);
-                setUpdatedPhone(phone);
-                setUpdatedBranch(branch);
-                setUpdatedSemester(semester);
-                setUpdatedGender(gender);
-            } catch (error) {
-                toast.error("Failed to fetch profile details", toastOptions);
-            }
-        };
-
-        if (isOpen) {
-            fetchStudentProfile();
-        }
-    }, [isOpen]);
-
     const handleSave = async (e) => {
         e.preventDefault();
+        setLoading(true);
         try {
             const token = localStorage.getItem("token");
             const updatedDetails = {
@@ -69,6 +42,7 @@ const StudentPopUp = ({ isOpen, onClose }) => {
                 gender: updatedGender,
             };
 
+            // Send the updated details to the backend
             const response = await axios.put(
                 'https://marks-management-system.onrender.com/api/v1/auth/update-student',
                 updatedDetails,
@@ -78,22 +52,18 @@ const StudentPopUp = ({ isOpen, onClose }) => {
                     },
                 }
             );
-            
             console.log(response);
             
-            // Update localStorage and context after successful update
-            localStorage.setItem("fullName", updatedFullName);
-            localStorage.setItem("studentEmail", updatedEmail);
-
-            updateStudentDetails({
-                fullname: updatedFullName,
-                email: updatedEmail,
-            });
+            // Update local storage and context with the new data
+            updateStudentDetails(updatedDetails);
 
             toast.success("Profile updated successfully", toastOptions);
             setIsEditing(false);
         } catch (error) {
+            console.error("Error updating profile:", error);
             toast.error("Failed to update profile", toastOptions);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -101,22 +71,25 @@ const StudentPopUp = ({ isOpen, onClose }) => {
         const token = localStorage.getItem("token");
         setLoading(true);
         try {
-            await axios.post('https://marks-management-system.onrender.com/api/v1/student/logout', {}, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
+            await axios.post(
+                'https://marks-management-system.onrender.com/api/v1/student/logout',
+                {},
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
 
-            localStorage.clear(); // Clear local storage
-            setTimeout(() => {
-                setLoading(false);
-                StudentLogout();
-                toast.success("Logged out successfully", toastOptions);
-                navigate("/");
-            }, 2000);
+            localStorage.clear();
+            StudentLogout();
+            toast.success("Logged out successfully", toastOptions);
+            navigate("/");
         } catch (error) {
             console.error('Error during logout:', error);
             toast.error('Logout failed, please try again.', toastOptions);
+        } finally {
+            setLoading(false);
         }
     };
 

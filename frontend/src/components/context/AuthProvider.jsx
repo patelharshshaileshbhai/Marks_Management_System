@@ -131,17 +131,30 @@ export const AdminAuthProvider = ({ children }) => {
 const StudentContext = createContext();
 
 // Custom hook to access the student context
-export const useStudent = () =>  useContext(StudentContext);
+export const useStudent = () => useContext(StudentContext);
 
 // Provider component
 export const StudentProvider = ({ children }) => {
     const [studentDetails, setStudentDetails] = useState({
         fullname: localStorage.getItem("fullName") || "",
         email: localStorage.getItem("studentEmail") || "",
+        enrollment: localStorage.getItem("studentEnrollment") || "",
+        phone: localStorage.getItem("studentPhone") || "",
+        branch: localStorage.getItem("studentBranch") || "",
+        semester: localStorage.getItem("studentSemester") || "",
+        gender: localStorage.getItem("studentGender") || "",
     });
 
     const updateStudentDetails = (details) => {
+        // Update both state and localStorage
         setStudentDetails(details);
+        if (details.fullname) localStorage.setItem("fullName", details.fullname);
+        if (details.email) localStorage.setItem("studentEmail", details.email);
+        if (details.enrollment) localStorage.setItem("studentEnrollment", details.enrollment);
+        if (details.phone) localStorage.setItem("studentPhone", details.phone);
+        if (details.branch) localStorage.setItem("studentBranch", details.branch);
+        if (details.semester) localStorage.setItem("studentSemester", details.semester);
+        if (details.gender) localStorage.setItem("studentGender", details.gender);
     };
 
     return (
