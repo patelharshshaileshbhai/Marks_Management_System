@@ -91,6 +91,7 @@ const FacultyLoginForm = () => {
                 className="w-full p-3 border border-gray-300 rounded-lg placeholder-gray-700 text-gray-900 font-dosis"
                 name="email"
               />
+              <p className="font-dosis text-gray-900 text-sm">Faculty Email : rachita.mohanty@saffrony.ac.in</p>
               <input
                 type="password"
                 placeholder="Secure Code"
@@ -100,6 +101,7 @@ const FacultyLoginForm = () => {
                 className="w-full p-3 border border-gray-300 rounded-lg placeholder-gray-700 text-gray-900 font-dosis"
                 name="secureCode"
               />
+              <p className="font-dosis text-gray-900 text-sm">Faculty Password : rachita@12345</p>
               <button
                 type="submit"
                 className="w-full bg-[#1F3848] text-white py-3 rounded-lg font-dosis"

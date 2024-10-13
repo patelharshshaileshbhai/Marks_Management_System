@@ -191,6 +191,7 @@ const FacultyAdminForm = () => {
             className="w-full p-3 border border-gray-300 rounded-lg text-gray-900 font-dosis"
             name="email"
           />
+          <p className="font-dosis text-gray-900 text-sm">Admin Email : akshay.kansara@saffrony.ac.in</p>
           <input
             type="password"
             placeholder="Password"
@@ -200,6 +201,7 @@ const FacultyAdminForm = () => {
             className="w-full p-3 border border-gray-300 rounded-lg text-gray-900 font-dosis"
             name="password"
           />
+          <p className="font-dosis text-gray-900 text-sm">Admin Password : 60003467</p>
           <button
             type="submit"
             className="w-full bg-[#1F3848] text-white py-3 rounded-lg font-dosis"
