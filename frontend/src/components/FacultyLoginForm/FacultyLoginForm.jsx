@@ -101,7 +101,7 @@ const FacultyLoginForm = () => {
                 className="w-full p-3 border border-gray-300 rounded-lg placeholder-gray-700 text-gray-900 font-dosis"
                 name="secureCode"
               />
-              <p className="font-dosis text-gray-900 text-sm">Faculty Password : rachita@12345</p>
+              <p className="font-dosis text-gray-900 text-sm">Faculty Password : rachita@123</p>
               <button
                 type="submit"
                 className="w-full bg-[#1F3848] text-white py-3 rounded-lg font-dosis"
